@@ -8684,42 +8684,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random Zombie (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 91e4925a5ed950343a39830dda500bc1, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: f1ed00ff071c9ae428ce97b0990f32e5, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: fc2e9b884bd9cef4da3dbab9e1ea2fdd, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 4950f05b276fb5b48841e06ae73a95bd, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 5b5c5eff5f2cf6844bf07de06fba24e4, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 96b7d84e18cd1634690de897307c6bde, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 01346fe4e09ae534db55c13fb434fe62, type: 3}
-    - target: {fileID: 5289116680189795997, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: zombieAttackShortSound.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: 80ff8010b46f82c43b6acb798839d24b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
 --- !u!1 &1262534295
@@ -12225,10 +12189,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 143496850466315225, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 143496850466315225, guid: 4c7ea58302ecd2f44a93241d4d9ddca0, type: 3}
       propertyPath: m_Name
       value: Random Zombie (2)
