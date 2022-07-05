@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ZombieAttack : MonoBehaviour
 {
-    [SerializeField] ZombieManager zombieManager;
+    ZombieManager zombieManager;
+    AudioSource audioSource;
+
+    public AudioClip[] zombieAttackShortSound;
+
+
 
     private void Awake()
     {
         zombieManager = GetComponent<ZombieManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void AttackEvent()
@@ -25,9 +31,14 @@ public class ZombieAttack : MonoBehaviour
             }
             else
             {
-
-                Debug.Log("Zombie hits the player!");
+                zombieManager.currentTarget.TakeDamageZombieHit(zombieManager.damageHit);
+                Debug.Log(zombieManager.currentTarget.health);
             }
         }
+    }
+
+    public void AttackSound()
+    {
+        audioSource.PlayOneShot(zombieAttackShortSound[Random.Range(0, zombieAttackShortSound.Length)]);
     }
 }

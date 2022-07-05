@@ -7,10 +7,14 @@ public class ZombieAttackState : ZombieState
     ZombieDeathState zombieDeathState;
     ZombieChaseState zombieChaseState;
 
+    ZombieAttack zombieAttack;
+
     private void Awake()
     {
         zombieDeathState = GetComponent<ZombieDeathState>();
         zombieChaseState = GetComponent<ZombieChaseState>();
+
+        zombieAttack = GetComponentInParent<ZombieAttack>();
     }
 
     public override ZombieState Tick(ZombieManager zombieManager)
@@ -27,7 +31,6 @@ public class ZombieAttackState : ZombieState
             return this;
         }
 
-        Debug.Log("Attack!");
         zombieManager.animator.SetLayerWeight(1, 1f);
         zombieManager.animator.SetFloat("Vertical", 0, 0.2f, Time.deltaTime);
 
@@ -35,6 +38,8 @@ public class ZombieAttackState : ZombieState
         {
             zombieManager.animator.CrossFade("Attack", 0.2f);
             zombieManager.canAttack = false;
+
+            zombieAttack.AttackSound();
         }
 
         if (zombieManager.distanceFromCurrentTarget <= zombieManager.minimumAttackDistance)

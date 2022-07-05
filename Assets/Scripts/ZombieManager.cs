@@ -33,6 +33,7 @@ public class ZombieManager : MonoBehaviour
     public float zombieSpeed = 0.5f;
 
     [Header("Attack")]
+    public int damageHit = 10;
     public float minimumAttackDistance = 1f;
     public float attackRangeBuffer = 0.3f;
     public float attackCooldown = 1.5f;

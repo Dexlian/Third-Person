@@ -24,11 +24,11 @@ public class WeaponAnimatorManager : MonoBehaviour
     {
         if (gunData.currentAmmo == 0)
         {
-            weaponAnimator.SetBool("Magazine Empty", true);
+            weaponAnimator.SetBool("Magazine_Empty", true);
         }
         else
         {
-            weaponAnimator.SetBool("Magazine Empty", false);
+            weaponAnimator.SetBool("Magazine_Empty", false);
         }
     }
 
@@ -36,7 +36,7 @@ public class WeaponAnimatorManager : MonoBehaviour
     {
         if (gunData.currentAmmo == 0)
         {
-            weaponAnimator.Play("Shoot Last Bullet");
+            weaponAnimator.Play("Shoot_Last_Bullet");
         }
         else weaponAnimator.Play("Shoot");
 
