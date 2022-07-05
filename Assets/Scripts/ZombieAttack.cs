@@ -5,16 +5,12 @@ using UnityEngine;
 public class ZombieAttack : MonoBehaviour
 {
     ZombieManager zombieManager;
-    AudioSource audioSource;
-
-    public AudioClip[] zombieAttackShortSound;
-
-
+    ZombieSounds zombieSounds;
 
     private void Awake()
     {
         zombieManager = GetComponent<ZombieManager>();
-        audioSource = GetComponent<AudioSource>();
+        zombieSounds = GetComponent<ZombieSounds>();
     }
 
     private void AttackEvent()
@@ -27,7 +23,7 @@ public class ZombieAttack : MonoBehaviour
         {
             if (zombieManager.distanceFromCurrentTarget > zombieManager.minimumAttackDistance + zombieManager.attackRangeBuffer)
             {
-                Debug.Log("Zombie misses the player.");
+                zombieSounds.MissSound();
             }
             else
             {
@@ -35,10 +31,5 @@ public class ZombieAttack : MonoBehaviour
                 Debug.Log(zombieManager.currentTarget.health);
             }
         }
-    }
-
-    public void AttackSound()
-    {
-        audioSource.PlayOneShot(zombieAttackShortSound[Random.Range(0, zombieAttackShortSound.Length)]);
     }
 }

@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] GunData gunData;
     [SerializeField] AudioManager audioManager;
     [SerializeField] Camera mainCamera;
-    public Transform laserAimModule;
+    [SerializeField] Transform laserAimModule;
 
     [Header("Layer Mask")]
     [SerializeField] LayerMask shootableLayers;
@@ -26,6 +26,12 @@ public class Gun : MonoBehaviour
     {
         PlayerShooting.shootInput += Shoot;
         PlayerShooting.reloadInput += StartReload;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerShooting.shootInput -= Shoot;
+        PlayerShooting.reloadInput -= StartReload;
     }
 
     private void Update()

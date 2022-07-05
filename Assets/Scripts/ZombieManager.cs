@@ -31,6 +31,7 @@ public class ZombieManager : MonoBehaviour
     [Header("Locomotion")]
     public float rotationSpeed = 5f;
     public float zombieSpeed = 0.5f;
+    public float zombieMaxSpeed = 2f;
 
     [Header("Attack")]
     public int damageHit = 10;
