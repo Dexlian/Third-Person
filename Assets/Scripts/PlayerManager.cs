@@ -29,7 +29,6 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamageZombieHit(int damage)
     {
         health -= damage;
-        playerSounds.PlaySoundPlayerTakesHit();
 
         if (health > 0)
         {
