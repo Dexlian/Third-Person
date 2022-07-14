@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    PlayerSounds playerSounds;
+    public PlayerInventory playerInventory;
+    public PlayerUIManager playerUIManager;
+    public PlayerSounds playerSounds;
 
     public int maxHealth = 100;
     public int health = 100;
 
     private void Awake()
     {
+        playerInventory = GetComponent<PlayerInventory>();
+        playerUIManager = GetComponent<PlayerUIManager>();
         playerSounds = GetComponent<PlayerSounds>();
     }
 

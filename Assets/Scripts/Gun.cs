@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] PlayerManager playerManager;
     [SerializeField] WeaponAnimatorManager weaponAnimatorManager;
     [SerializeField] GunData gunData;
     [SerializeField] AudioManager audioManager;
@@ -22,10 +23,17 @@ public class Gun : MonoBehaviour
 
     private float timeSinceLastShot;
 
+    private void Awake()
+    {
+        playerManager = FindObjectOfType<PlayerManager>();
+    }
     private void Start()
     {
         PlayerShooting.shootInput += Shoot;
         PlayerShooting.reloadInput += StartReload;
+
+        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
     }
 
     private void OnDestroy()
@@ -43,12 +51,12 @@ public class Gun : MonoBehaviour
 
     public void StartReload()
     {
-        if (!gunData.isReloading && gunData.currentAmmo > 0)
+        if (!gunData.isReloading && gunData.currentAmmo > 0 && playerManager.playerInventory.reservePistolAmmo > 0)
         {
             StartCoroutine(Reload());
         }
 
-        else if (!gunData.isReloading && gunData.currentAmmo == 0)
+        else if (!gunData.isReloading && gunData.currentAmmo == 0 && playerManager.playerInventory.reservePistolAmmo > 0)
         {
             StartCoroutine(ReloadEmpty());
         }
@@ -56,24 +64,58 @@ public class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
+        int bulletsToReload;
+
         gunData.isReloading = true;
         audioManager.Play(gunData.reloadSound.name);
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        gunData.currentAmmo = gunData.magazineSize + 1;
+        bulletsToReload = gunData.magazineSizePlusChamber - gunData.currentAmmo;
+
+        if (playerManager.playerInventory.reservePistolAmmo >= bulletsToReload)
+        {
+            gunData.currentAmmo = gunData.magazineSizePlusChamber;
+            playerManager.playerInventory.reservePistolAmmo -= bulletsToReload;
+        }
+        else
+        {
+            gunData.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
+            playerManager.playerInventory.reservePistolAmmo = 0;
+        }
+
+        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
+        playerManager.playerUIManager.ammoCountFade.CheckMagazine();
 
         gunData.isReloading = false;
     }
 
     private IEnumerator ReloadEmpty()
     {
+        int bulletsToReload;
+
         gunData.isReloading = true;
         audioManager.Play(gunData.reloadEmptySound.name);
 
         yield return new WaitForSeconds(gunData.reloadEmptyTime);
 
-        gunData.currentAmmo = gunData.magazineSize;
+        bulletsToReload = gunData.magazineSize;
+
+        if (playerManager.playerInventory.reservePistolAmmo >= bulletsToReload)
+        {
+            gunData.currentAmmo = gunData.magazineSize;
+            playerManager.playerInventory.reservePistolAmmo -= bulletsToReload;
+        }
+        else
+        {
+            gunData.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
+            playerManager.playerInventory.reservePistolAmmo = 0;
+        }
+
+        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
+        playerManager.playerUIManager.ammoCountFade.CheckMagazine();
 
         gunData.isReloading = false;
     }
@@ -158,6 +200,7 @@ public class Gun : MonoBehaviour
             }
 
             gunData.currentAmmo--;
+            playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
             timeSinceLastShot = 0;
             OnGunShot();
         }
