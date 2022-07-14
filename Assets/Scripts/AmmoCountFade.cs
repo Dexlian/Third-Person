@@ -9,6 +9,9 @@ public class AmmoCountFade : MonoBehaviour
     [SerializeField] GameObject ammoReserveText;
     [SerializeField] GameObject divider;
 
+    public bool canFade;
+    public bool isFading;
+
     [Header("Fade Options")]
     [SerializeField] float timeBeforeFadeOutBegins = 2;
     private void Awake()
@@ -20,23 +23,31 @@ public class AmmoCountFade : MonoBehaviour
     {
         DisableAllObjects();
         canvasGroup.alpha = 0f;
+        canFade = true;
+        isFading = false;
     }
 
     public void CheckMagazine()
     {
-        ammoMagazineText.SetActive(true);
-        divider.SetActive(true);
+        if (canFade && !isFading)
+        {
+            ammoMagazineText.SetActive(true);
+            divider.SetActive(true);
 
-        StartCoroutine(FadeIn());
+            StartCoroutine(FadeIn());
+        }
     }
 
     public void CheckMagazineAndReserve()
     {
-        ammoMagazineText.SetActive(true);
-        ammoReserveText.SetActive(true);
-        divider.SetActive(true);
+        if (canFade && !isFading)
+        {
+            ammoMagazineText.SetActive(true);
+            ammoReserveText.SetActive(true);
+            divider.SetActive(true);
 
-        StartCoroutine(FadeIn());
+            StartCoroutine(FadeIn());
+        }
     }
 
     private void DisableAllObjects()
@@ -48,7 +59,10 @@ public class AmmoCountFade : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        for (float fade = 0.05f; fade < 1; fade = fade + 0.05f)
+        canFade = false;
+        isFading = true;
+
+        for (float fade = 0.05f; fade < 1; fade += 0.05f)
         {
             canvasGroup.alpha = fade;
 
@@ -65,13 +79,15 @@ public class AmmoCountFade : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBeforeFadeOutBegins);
 
-        for (float fade = 1f; fade > 0; fade = fade - 0.05f)
+        for (float fade = 1f; fade > 0; fade -= 0.05f)
         {
             canvasGroup.alpha = fade;
 
             if (fade <= 0.05f)
             {
                 DisableAllObjects();
+                canFade = true;
+                isFading = false;
             }
 
             yield return new WaitForSeconds(0.05f);

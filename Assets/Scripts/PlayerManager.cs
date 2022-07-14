@@ -8,8 +8,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerUIManager playerUIManager;
     public PlayerSounds playerSounds;
 
-    public int maxHealth = 100;
-    public int health = 100;
+    public int playerMaxHealth = 100;
+    public int playerHealth = 100;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        playerHealth = playerMaxHealth;
     }
 
     // Update is called once per frame
@@ -32,14 +32,16 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamageZombieHit(int damage)
     {
-        health -= damage;
+        playerHealth -= damage;
 
-        if (health > 0)
+        if (playerHealth > 0)
         {
+            playerUIManager.DisplayHealthPopUp();
             playerSounds.PlaySoundPlayerTakesHit();
         }
         else
         {
+            //Kill the player
             playerSounds.PlaySoundPlayerDies();
         }
     }

@@ -16,10 +16,11 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
+        reservePistolAmmo = startingReservePistolAmmo;
     }
     private void Start()
     {
-        reservePistolAmmo = startingReservePistolAmmo;
+
     }
 
     private void Update()

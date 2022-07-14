@@ -28,7 +28,7 @@ public class ZombieAttack : MonoBehaviour
             else
             {
                 zombieManager.currentTarget.TakeDamageZombieHit(zombieManager.damageHit);
-                Debug.Log(zombieManager.currentTarget.health);
+                Debug.Log(zombieManager.currentTarget.playerHealth);
             }
         }
     }
