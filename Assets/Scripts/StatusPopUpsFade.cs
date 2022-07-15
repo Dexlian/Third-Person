@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StatusPopUpsFade : MonoBehaviour
 {
+    PlayerManager playerManager;
     CanvasGroup canvasGroup;
     [SerializeField] GameObject popUpFineFull;
     [SerializeField] GameObject popUpFineDamaged;
@@ -17,15 +18,51 @@ public class StatusPopUpsFade : MonoBehaviour
     [SerializeField] float timeBeforeFadeOutBegins = 2;
     private void Awake()
     {
+        playerManager = FindObjectOfType<PlayerManager>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Start()
     {
-        //DisableAllObjects();
+        DisableAllObjects();
         canvasGroup.alpha = 1f;
         canFade = true;
         isFading = false;
+    }
+
+    private void Update()
+    {
+        if (isFading)
+        {
+            if (playerManager.playerHealth >= 100)
+            {
+                popUpFineFull.SetActive(true);
+                popUpFineDamaged.SetActive(false);
+                popUpCaution.SetActive(false);
+                popUpDanger.SetActive(false);
+            }
+            else if (playerManager.playerHealth >= 66 && playerManager.playerHealth <= 99)
+            {
+                popUpFineFull.SetActive(false);
+                popUpFineDamaged.SetActive(true);
+                popUpCaution.SetActive(false);
+                popUpDanger.SetActive(false);
+            }
+            else if (playerManager.playerHealth >= 33 && playerManager.playerHealth <= 65)
+            {
+                popUpFineFull.SetActive(false);
+                popUpFineDamaged.SetActive(false);
+                popUpCaution.SetActive(true);
+                popUpDanger.SetActive(false);
+            }
+            else if (playerManager.playerHealth >= 01 && playerManager.playerHealth <= 32)
+            {
+                popUpFineFull.SetActive(false);
+                popUpFineDamaged.SetActive(false);
+                popUpCaution.SetActive(false);
+                popUpDanger.SetActive(true);
+            }
+        }
     }
 
     private void DisableAllObjects()
@@ -40,7 +77,7 @@ public class StatusPopUpsFade : MonoBehaviour
     {
         if (canFade && !isFading)
         {
-            if (playerHealthPercentage >= 100)
+            /*if (playerHealthPercentage >= 100)
             {
                 popUpFineFull.SetActive(true);
             }
@@ -56,7 +93,7 @@ public class StatusPopUpsFade : MonoBehaviour
             {
                 popUpDanger.SetActive(true);
             }
-
+            */
             StartCoroutine(FadeIn());
         }
     }
