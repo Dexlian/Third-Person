@@ -9,6 +9,7 @@ public class GunData : ScriptableObject
     public new string name;
 
     [Header("Shooting")]
+    public bool isFullAuto;
     public float damage;
     public float staggerChance;
     public float fireRate;

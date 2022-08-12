@@ -11,6 +11,8 @@ public class PlayerShooting : MonoBehaviour
     public static Action shootInput;
     public static Action reloadInput;
 
+    public bool playerShootingFullAuto;
+
     [Header("Keybinds")]
     public KeyCode reloadKey = KeyCode.R;
 
@@ -25,6 +27,15 @@ public class PlayerShooting : MonoBehaviour
         if (playerCameraAim.isAiming && characterAnimator.isAimedIn && Input.GetMouseButtonDown(0))
         {
             shootInput?.Invoke();
+        }
+
+        if (playerCameraAim.isAiming && characterAnimator.isAimedIn && Input.GetMouseButton(0))
+        {
+            playerShootingFullAuto = true;
+        }
+        else
+        {
+            playerShootingFullAuto = false;
         }
 
         if (playerCameraAim.isAiming && characterAnimator.isAimedIn && Input.GetKeyDown(reloadKey))

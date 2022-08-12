@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127619f53545b6040afaf6560a438334, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  name: Five-Seven
+  name: Glock
+  isFullAuto: 0
   damage: 10
   staggerChance: 0.5
-  fireRate: 60
+  fireRate: 120
   maximumDistance: 100
   shotSound:
     name: weaponFiveSevenShot

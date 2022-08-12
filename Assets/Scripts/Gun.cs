@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PlayerManager playerManager;
+    [SerializeField] PlayerShooting playerShooting;
     [SerializeField] WeaponAnimatorManager weaponAnimatorManager;
     [SerializeField] GunData gunData;
     [SerializeField] AudioManager audioManager;
@@ -45,6 +46,11 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
+
+        if (playerShooting.playerShootingFullAuto && gunData.isFullAuto)
+        {
+            Shoot();
+        }
 
         //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100);
     }
