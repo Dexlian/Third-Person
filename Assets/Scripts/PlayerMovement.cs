@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
 
     public Transform orientation;
-    public PlayerCameraAim cameraMovement;
+    public PlayerCamera cameraMovement;
 
     [Header("Keybinds")]
     public KeyCode runKey = KeyCode.LeftShift;

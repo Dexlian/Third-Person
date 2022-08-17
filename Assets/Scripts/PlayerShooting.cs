@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    CharacterAnimator characterAnimator;
-    PlayerCameraAim playerCameraAim;
+    AnimatorManager characterAnimator;
+    PlayerCamera playerCameraAim;
 
     public static Action shootInput;
     public static Action reloadInput;
@@ -18,8 +18,8 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
-        playerCameraAim = GetComponent<PlayerCameraAim>();
+        characterAnimator = GetComponent<AnimatorManager>();
+        playerCameraAim = GetComponent<PlayerCamera>();
     }
 
     private void Update()

@@ -12509,7 +12509,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3336557, y: 1}
+    m_SensorSize: {x: 0.8887814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16514,7 +16514,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3336557, y: 1}
+    m_SensorSize: {x: 0.8887814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -27446,7 +27446,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3336557, y: 1}
+    m_SensorSize: {x: 0.8887814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -33484,6 +33484,7 @@ GameObject:
   - component: {fileID: 1880518019}
   - component: {fileID: 1880518021}
   - component: {fileID: 1880518024}
+  - component: {fileID: 1880518028}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -33899,6 +33900,22 @@ MonoBehaviour:
   ammoCountFade: {fileID: 0}
   ammoMagazineText: {fileID: 1610256752}
   ammoReserveText: {fileID: 1800748261}
+--- !u!114 &1880518028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880518009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54c1b382bbe97548b62cc8d5b63a7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalMovementInput: 0
+  horizontalMovementInput: 0
+  verticalCameraInput: 0
+  horizontalCameraInput: 0
 --- !u!43 &1919165631
 Mesh:
   m_ObjectHideFlags: 0

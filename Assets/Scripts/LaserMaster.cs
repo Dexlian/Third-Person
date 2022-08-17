@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserMaster : MonoBehaviour
 {
-    CharacterAnimator characterAnimator;
+    AnimatorManager characterAnimator;
 
     public GameObject laserParent;
 
@@ -13,7 +13,7 @@ public class LaserMaster : MonoBehaviour
 
     void Start()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
+        characterAnimator = GetComponent<AnimatorManager>();
         laserParent.SetActive(false);
     }
 

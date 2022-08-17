@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserAimModule : MonoBehaviour
 {
-    CharacterAnimator characterAnimator;
+    AnimatorManager characterAnimator;
 
     public LineRenderer laser;
     public Transform laserAimModule;
@@ -14,7 +14,7 @@ public class LaserAimModule : MonoBehaviour
 
     void Start()
     {
-        characterAnimator = GetComponentInParent<CharacterAnimator>();
+        characterAnimator = GetComponentInParent<AnimatorManager>();
     }
 
     private void LateUpdate()

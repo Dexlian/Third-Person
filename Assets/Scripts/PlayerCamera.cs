@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerCameraAim : MonoBehaviour
+public class PlayerCamera : MonoBehaviour
 {
     [Header("Unity Stuff")]
     PlayerMovement playerMovement;

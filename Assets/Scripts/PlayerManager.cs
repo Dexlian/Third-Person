@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    InputManager inputManager;
+
     public PlayerInventory playerInventory;
     public PlayerUIManager playerUIManager;
     public PlayerSounds playerSounds;
@@ -13,6 +15,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        inputManager = GetComponent<InputManager>();
         playerInventory = GetComponent<PlayerInventory>();
         playerUIManager = GetComponent<PlayerUIManager>();
         playerSounds = GetComponent<PlayerSounds>();
@@ -27,7 +30,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        inputManager.HandleAllInputs();
     }
 
     public void TakeDamageZombieHit(int damage)
