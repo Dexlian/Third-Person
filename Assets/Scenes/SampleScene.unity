@@ -11986,11 +11986,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!135 &720515702 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 2216419046804221806, guid: 0a08fd84400ab0c41b7a22b7fd0b90a3, type: 3}
-  m_PrefabInstance: {fileID: 393584846}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &741579411
 GameObject:
   m_ObjectHideFlags: 0
@@ -12514,7 +12509,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4603481, y: 1}
+    m_SensorSize: {x: 0.655706, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -15782,11 +15777,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!135 &1292884185 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 8184674077090010378, guid: 0a08fd84400ab0c41b7a22b7fd0b90a3, type: 3}
-  m_PrefabInstance: {fileID: 393584846}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1304316471
 GameObject:
   m_ObjectHideFlags: 0
@@ -16524,7 +16514,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4603481, y: 1}
+    m_SensorSize: {x: 0.655706, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -27456,7 +27446,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4603481, y: 1}
+    m_SensorSize: {x: 0.655706, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -33596,6 +33586,9 @@ MonoBehaviour:
   sensitivityMultiplier: 0.01
   minXRotation: -80
   maxXRotation: 80
+  quickTurnSmooth: 1
+  quickTurnTime: 0
+  quickTurnAmount: 6.792
   aimKey: 324
   sensitivityXAiming: 4
   sensitivityYAiming: 4
@@ -33734,9 +33727,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 0}
   playerUIManager: {fileID: 0}
-  playerSounds: {fileID: 0}
   playerMaxHealth: 100
   playerHealth: 100
+  isPerformingAction: 0
+  isPerformingQuickTurn: 0
 --- !u!114 &1880518023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33749,8 +33743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5c713571d5da6468dad7ee2148b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider1: {fileID: 1292884185}
-  collider2: {fileID: 720515702}
   footstepNormal:
   - {fileID: 8300000, guid: e56d3429dea714845b1bfd82e1b784ad, type: 3}
   - {fileID: 8300000, guid: 5c76db8da87ef2c49bfee7ec59f2cbfd, type: 3}
@@ -33930,6 +33922,7 @@ MonoBehaviour:
   verticalCameraInput: 0
   horizontalCameraInput: 0
   runInput: 0
+  quickTurnInput: 0
 --- !u!43 &1919165631
 Mesh:
   m_ObjectHideFlags: 0

@@ -5,17 +5,22 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     InputManager inputManager;
-
+    Animator animator;
     public PlayerInventory playerInventory;
     public PlayerUIManager playerUIManager;
-    public PlayerSounds playerSounds;
+    PlayerSounds playerSounds;
 
     public int playerMaxHealth = 100;
     public int playerHealth = 100;
 
+    [Header("Player Flags")]
+    public bool isPerformingAction;
+    public bool isPerformingQuickTurn;
+
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
+        animator = GetComponent<Animator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerUIManager = GetComponent<PlayerUIManager>();
         playerSounds = GetComponent<PlayerSounds>();
@@ -31,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         inputManager.HandleAllInputs();
+        isPerformingAction = animator.GetBool("isPerformingAction");
     }
 
     public void TakeDamageZombieHit(int damage)

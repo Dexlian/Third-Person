@@ -16,19 +16,26 @@ public class AnimatorManager : MonoBehaviour
     public float aimTime = 0.3f;
     public bool isAimedIn;
 
-    float parameterFactor;
-
     float snappedHorizontal;
     float snappedVertical;
 
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
         playerCamera = GetComponent<PlayerCamera>();
         playerMovement = GetComponent<PlayerMovement>();
+    }
 
-        //Calculate factor to multiply with for parameters
-        parameterFactor = playerMovement.walkSpeed / playerMovement.runSpeed;
+    void Update()
+    {
+        HandleRigLayer();
+    }
+
+    public void PlayAnimationWithoutRootMotion(string targetAnimation, bool isPerformingAction)
+    {
+        animator.SetBool("isPerformingAction", isPerformingAction);
+        animator.applyRootMotion = false;
+        animator.CrossFade(targetAnimation, 0.2f);
     }
 
     //Called in PlayerManager
@@ -68,42 +75,12 @@ public class AnimatorManager : MonoBehaviour
             snappedVertical = 0f;
         }
 
-        /*
-        if (!playerMovement.isRunning)
-        {
-            speedHorizontal = horizontalMovement * parameterFactor;
-            speedVertical = verticalMovement * parameterFactor;
-        }
-        else
-        {
-            speedHorizontal = 0f;
-            speedVertical = verticalMovement;
-        }
-        */
-
         animator.SetFloat("speedHorizontal", snappedHorizontal, locomotionAnimationSmoothTime, Time.deltaTime);
         animator.SetFloat("speedVertical", snappedVertical, locomotionAnimationSmoothTime, Time.deltaTime);
     }
 
-    void Update()
+    private void HandleRigLayer()
     {
-        /*//Blend Tree for Movement
-        if (!playerMovement.isRunning)
-        {
-            speedHorizontal = Input.GetAxisRaw("Horizontal") * parameterFactor;
-            speedVertical = Input.GetAxisRaw("Vertical") * parameterFactor;
-        }
-        else
-        {
-            speedHorizontal = 0f;
-            speedVertical = Input.GetAxisRaw("Vertical");
-        }
-
-        animator.SetFloat("speedHorizontal", speedHorizontal, locomotionAnimationSmoothTime, Time.deltaTime);
-        animator.SetFloat("speedVertical", speedVertical, locomotionAnimationSmoothTime, Time.deltaTime);
-        */
-
-        //Rig Layer
         if (playerCamera.isAiming)
         {
             aimLayer.weight += Time.deltaTime / aimTime;

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class FootstepsSound : MonoBehaviour
 {
-    public Collider collider1;
-    public Collider collider2;
-
     PlayerMovement playerMovement;
     AudioSource audioSource;
 
@@ -34,7 +31,6 @@ public class FootstepsSound : MonoBehaviour
             audioSource.volume = (playerMovement.moveSpeed / playerMovement.maximumSpeed) * 0.5f;
             audioSource.PlayOneShot(footstepNormal[Random.Range(0, footstepNormal.Length)]);
 
-            Debug.Log(footstepTimer);
             footstepTimer = 0f;
         }
         else if (other.transform.CompareTag("FloorMetal") && footstepTimer >= footstepResetTime)
@@ -42,7 +38,6 @@ public class FootstepsSound : MonoBehaviour
             audioSource.volume = (playerMovement.moveSpeed / playerMovement.maximumSpeed) * 0.5f;
             audioSource.PlayOneShot(footstepMetal[Random.Range(0, footstepMetal.Length)]);
 
-            Debug.Log(footstepTimer);
             footstepTimer = 0f;
         }
     }

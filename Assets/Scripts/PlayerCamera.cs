@@ -7,6 +7,7 @@ public class PlayerCamera : MonoBehaviour
 {
     [Header("Unity Stuff")]
     InputManager inputManager;
+    PlayerManager playerManager;
     PlayerMovement playerMovement;
     public GameObject cameraNormal;
     public GameObject cameraRunning;
@@ -24,6 +25,13 @@ public class PlayerCamera : MonoBehaviour
     public float minXRotation = -80f;
     public float maxXRotation = 80f;
 
+    [Header("Quick Turn")]
+    public float quickTurnSmooth = 1f;
+    public float quickTurnTime = 0f;
+    //quick turn amount of 6.792f is almost 180 degrees
+    public float quickTurnAmount = 6.792f;
+    Quaternion targetRotation;
+
     [Header("Aiming")]
     public KeyCode aimKey = KeyCode.Mouse1;
     public float sensitivityXAiming;
@@ -39,6 +47,7 @@ public class PlayerCamera : MonoBehaviour
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
+        playerManager = GetComponent<PlayerManager>();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
@@ -60,7 +69,7 @@ public class PlayerCamera : MonoBehaviour
 
         //rotate camera root
         playerCameraRoot.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        
+
         //Aiming
         if (isAiming)
         {
@@ -99,6 +108,21 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        //Quick Turn
+        quickTurnTime += Time.deltaTime;
+        if (playerManager.isPerformingQuickTurn)
+        {
+            yRotation = Mathf.Lerp(yRotation, yRotation + quickTurnAmount, quickTurnTime);
+        }
+
+        if (quickTurnTime > 1f)
+        {
+            playerManager.isPerformingQuickTurn = false;
+        }
+    }
+
     void PlayerInput()
     {
         mouseX = inputManager.horizontalCameraInput;
@@ -118,5 +142,25 @@ public class PlayerCamera : MonoBehaviour
         {
             isAiming = false;
         }
+    }
+
+    public void PerformQuickTurn()
+    {
+        quickTurnTime = 0f;
+        playerManager.isPerformingQuickTurn = true;
+
+        //targetRotation = Vector3.zero;
+        //targetRotation.y = Quaternion.Euler(0, yRotation + 180, 0);
+
+        //gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, targetRotation, quickTurnSmooth * Time.deltaTime);
+        //playerCameraRoot.transform.rotation = Quaternion.RotateTowards(playerCameraRoot.transform.rotation, targetRotation, quickTurnSmooth * Time.deltaTime);
+
+        //float targetYRotation = yRotation + 180;
+        //yRotation += 180;
+
+        //targetRotation = Quaternion.Euler(0, yRotation + 180, 0);
+        //targetRotation = Quaternion.Slerp(gameObject.transform.rotation, targetRotation, quickTurnSmooth);
+        //gameObject.transform.rotation = targetRotation;
+        //playerCameraRoot.transform.rotation = targetRotation;
     }
 }
