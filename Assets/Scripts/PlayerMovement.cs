@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    InputManager inputManager;
     Rigidbody rb;
 
     float horizontalInput;
@@ -67,8 +68,9 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    void Start()
+    void Awake()
     {
+        inputManager = GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -125,17 +127,21 @@ public class PlayerMovement : MonoBehaviour
         //walking
         if (!isRunning)
         {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
+            //horizontalInput = Input.GetAxisRaw("Horizontal");
+            horizontalInput = inputManager.horizontalMovementInput;
         }
-        verticalInput = Input.GetAxisRaw("Vertical");
+        //verticalInput = Input.GetAxisRaw("Vertical");
+        verticalInput = inputManager.verticalMovementInput;
 
         //running
-        if (verticalInput > 0f && !isRunning && Input.GetKeyDown(runKey))
+        //if (verticalInput > 0f && !isRunning && Input.GetKeyDown(runKey))
+        if (verticalInput > 0f && !isRunning && inputManager.runInput)
         {
             isRunning = true;
         }
 
-        else if (verticalInput <= 0f || (isRunning && Input.GetKeyDown(runKey)) || cameraMovement.isAiming)
+        //else if (verticalInput <= 0f || (isRunning && Input.GetKeyDown(runKey)) || cameraMovement.isAiming)
+        else if (verticalInput <= 0f || (isRunning && inputManager.runInput) || cameraMovement.isAiming)
         {
             isRunning = false;
         }

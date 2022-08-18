@@ -6,6 +6,7 @@ using Cinemachine;
 public class PlayerCamera : MonoBehaviour
 {
     [Header("Unity Stuff")]
+    InputManager inputManager;
     PlayerMovement playerMovement;
     public GameObject cameraNormal;
     public GameObject cameraRunning;
@@ -35,12 +36,17 @@ public class PlayerCamera : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    private void Awake()
+    {
+        inputManager = GetComponent<InputManager>();
+        playerMovement = GetComponent<PlayerMovement>();
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        playerMovement = GetComponent<PlayerMovement>();
 
         isAiming = false;
     }
@@ -95,9 +101,8 @@ public class PlayerCamera : MonoBehaviour
 
     void PlayerInput()
     {
-        //mouse movement
-        mouseX = Input.GetAxisRaw("Mouse X");
-        mouseY = Input.GetAxisRaw("Mouse Y");
+        mouseX = inputManager.horizontalCameraInput;
+        mouseY = inputManager.verticalCameraInput;
 
         yRotation += mouseX * sensitivityX * sensitivityMultiplier;
         xRotation -= mouseY * sensitivityY * sensitivityMultiplier;

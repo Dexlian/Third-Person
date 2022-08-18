@@ -11986,6 +11986,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!135 &720515702 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2216419046804221806, guid: 0a08fd84400ab0c41b7a22b7fd0b90a3, type: 3}
+  m_PrefabInstance: {fileID: 393584846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &741579411
 GameObject:
   m_ObjectHideFlags: 0
@@ -12509,7 +12514,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.8887814, y: 1}
+    m_SensorSize: {x: 1.4603481, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -15777,6 +15782,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!135 &1292884185 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 8184674077090010378, guid: 0a08fd84400ab0c41b7a22b7fd0b90a3, type: 3}
+  m_PrefabInstance: {fileID: 393584846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1304316471
 GameObject:
   m_ObjectHideFlags: 0
@@ -16514,7 +16524,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.8887814, y: 1}
+    m_SensorSize: {x: 1.4603481, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -27446,7 +27456,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.8887814, y: 1}
+    m_SensorSize: {x: 1.4603481, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -28099,7 +28109,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22610
+  m_Name: pb_Mesh23336
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33579,16 +33589,16 @@ MonoBehaviour:
   cameraAiming: {fileID: 1466020065}
   crosshair: {fileID: 1181078943}
   playerCameraRoot: {fileID: 1144567311}
-  sensitivityX: 140
-  sensitivityY: 140
-  sensitivityXNormal: 140
-  sensitivityYNormal: 140
+  sensitivityX: 7
+  sensitivityY: 7
+  sensitivityXNormal: 7
+  sensitivityYNormal: 7
   sensitivityMultiplier: 0.01
   minXRotation: -80
   maxXRotation: 80
   aimKey: 324
-  sensitivityXAiming: 70
-  sensitivityYAiming: 70
+  sensitivityXAiming: 4
+  sensitivityYAiming: 4
   isAiming: 0
 --- !u!136 &1880518014
 CapsuleCollider:
@@ -33739,7 +33749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5c713571d5da6468dad7ee2148b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1880518012}
+  collider1: {fileID: 1292884185}
+  collider2: {fileID: 720515702}
   footstepNormal:
   - {fileID: 8300000, guid: e56d3429dea714845b1bfd82e1b784ad, type: 3}
   - {fileID: 8300000, guid: 5c76db8da87ef2c49bfee7ec59f2cbfd, type: 3}
@@ -33755,6 +33766,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5b4680e93a1ff4749b985d8057621dd9, type: 3}
   - {fileID: 8300000, guid: b78033a78c302cb40a50419f81d642f2, type: 3}
   - {fileID: 8300000, guid: b60f4ce234105244e84aa9cf183d3b27, type: 3}
+  footstepTimer: 0
+  footstepResetTime: 0.2
 --- !u!82 &1880518024
 AudioSource:
   m_ObjectHideFlags: 0
@@ -33916,6 +33929,7 @@ MonoBehaviour:
   horizontalMovementInput: 0
   verticalCameraInput: 0
   horizontalCameraInput: 0
+  runInput: 0
 --- !u!43 &1919165631
 Mesh:
   m_ObjectHideFlags: 0

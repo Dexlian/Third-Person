@@ -31,6 +31,7 @@ public class AnimatorManager : MonoBehaviour
         parameterFactor = playerMovement.walkSpeed / playerMovement.runSpeed;
     }
 
+    //Called in PlayerManager
     public void HandleAnimatorValues(float horizontalMovement, float verticalMovement)
     {
         if (horizontalMovement > 0 && !playerMovement.isRunning)
