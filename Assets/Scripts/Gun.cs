@@ -135,60 +135,73 @@ public class Gun : MonoBehaviour
             if (Physics.Raycast(laserAimModule.position, laserAimModule.forward, out RaycastHit hitInfo, gunData.maximumDistance, shootableLayers))
             {
                 IDamageable damageable = hitInfo.transform.GetComponentInParent<IDamageable>();
-                damageable?.TakeDamage(gunData.damage);
-
                 IStaggerable staggerable = hitInfo.transform.GetComponentInParent<IStaggerable>();
-                staggerable?.TryToStagger(gunData.staggerChance);
 
-                ZombieEffectManager zombie = hitInfo.collider.gameObject.GetComponentInParent<ZombieEffectManager>();
+                ZombieManager zombie = hitInfo.collider.gameObject.GetComponentInParent<ZombieManager>();
+                ZombieEffectManager zombieEffect = hitInfo.collider.gameObject.GetComponentInParent<ZombieEffectManager>();
 
-                if (zombie != null)
+
+                if (zombieEffect != null)
                 {
                     if (hitInfo.collider.gameObject.layer == 9)
                     {
-                        zombie.DamageZombieHead();
+                        zombieEffect.DamageZombieHead();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierHead);
+                        staggerable?.TryToStagger(1);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                     else if (hitInfo.collider.gameObject.layer == 10)
                     {
-                        zombie.DamageZombieTorso();
+                        zombieEffect.DamageZombieTorso();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierTorso);
+                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierTorso);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                     else if (hitInfo.collider.gameObject.layer == 11)
                     {
-                        zombie.DamageZombieLeftArm();
+                        zombieEffect.DamageZombieLeftArm();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierArm);
+                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                     else if (hitInfo.collider.gameObject.layer == 12)
                     {
-                        zombie.DamageZombieRightArm();
+                        zombieEffect.DamageZombieRightArm();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierArm);
+                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                     else if (hitInfo.collider.gameObject.layer == 13)
                     {
-                        zombie.DamageZombieLeftLeg();
+                        zombieEffect.DamageZombieLeftLeg();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierLeg);
+                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                     else if (hitInfo.collider.gameObject.layer == 14)
                     {
-                        zombie.DamageZombieRightLeg();
+                        zombieEffect.DamageZombieRightLeg();
+                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierLeg);
+                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
                     }
                 }
-                else if (zombie == null)
+                else if (zombieEffect == null)
                 {
+                    damageable?.TakeDamage(gunData.damage);
+
                     if (hitInfo.collider.gameObject.layer == 6)
                     {
                         if (hitInfo.collider.gameObject.CompareTag("FloorNormal"))

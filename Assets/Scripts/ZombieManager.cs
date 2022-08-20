@@ -42,14 +42,30 @@ public class ZombieManager : MonoBehaviour
     public bool canAttack;
 
     [Header("Health")]
+    public ZombieHealth zombieHealth;
+    public float zombieDamageMultiplierHead = 1f;
+    public float zombieDamageMultiplierTorso = 1f;
+    public float zombieDamageMultiplierArm = 1f;
+    public float zombieDamageMultiplierLeg = 1f;
     public bool isDead = false;
+
+    [Header("Stagger")]
+    public float zombieStaggerMultiplierHead = 1f;
+    public float zombieStaggerMultiplierTorso = 1f;
+    public float zombieStaggerMultiplierArm = 1f;
+    public float zombieStaggerMultiplierLeg = 1f;
 
     private void Awake()
     {
-        currentState = startingState;
         animator = GetComponent<Animator>();
         zombieNavMeshAgent = GetComponentInChildren<NavMeshAgent>();
         zombieRigidbody = GetComponent<Rigidbody>();
+        zombieHealth = GetComponent<ZombieHealth>();
+    }
+
+    private void Start()
+    {
+        currentState = startingState;
         canAttack = true;
     }
 

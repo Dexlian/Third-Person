@@ -8,7 +8,7 @@ public class ZombieHealth : MonoBehaviour, IDamageable
     ZombieSounds zombieSounds;
 
     public ZombieRagdoll zombieRagdoll;
-    public float health = 30f;
+    public float health = 80f;
     public float damageSoundTimer = 1f;
 
     private void Awake()

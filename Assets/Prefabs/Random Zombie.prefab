@@ -5996,7 +5996,6 @@ GameObject:
   - component: {fileID: 7519610712301177585}
   - component: {fileID: 8837824004271118706}
   - component: {fileID: 121100024}
-  - component: {fileID: 8305529066456352296}
   m_Layer: 8
   m_Name: Random Zombie
   m_TagString: Enemy
@@ -6237,7 +6236,16 @@ MonoBehaviour:
   attackCooldown: 1.5
   attackTimer: 0
   canAttack: 0
+  zombieHealth: {fileID: 0}
+  zombieDamageMultiplierHead: 5
+  zombieDamageMultiplierTorso: 1
+  zombieDamageMultiplierArm: 0.5
+  zombieDamageMultiplierLeg: 0.5
   isDead: 0
+  zombieStaggerMultiplierHead: 1
+  zombieStaggerMultiplierTorso: 1
+  zombieStaggerMultiplierArm: 1
+  zombieStaggerMultiplierLeg: 2
 --- !u!114 &7519610712301177585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6318,19 +6326,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5b4680e93a1ff4749b985d8057621dd9, type: 3}
   - {fileID: 8300000, guid: b78033a78c302cb40a50419f81d642f2, type: 3}
   - {fileID: 8300000, guid: b60f4ce234105244e84aa9cf183d3b27, type: 3}
---- !u!114 &8305529066456352296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143496850466315225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c4e04cc6a470f46830b4437281a190, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zombieManager: {fileID: 0}
 --- !u!1 &143500479103010163
 GameObject:
   m_ObjectHideFlags: 0

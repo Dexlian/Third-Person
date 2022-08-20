@@ -37,6 +37,7 @@ public class PlayerCamera : MonoBehaviour
     public float sensitivityXAiming;
     public float sensitivityYAiming;
     public bool isAiming;
+    public bool aimDebug;
 
     float mouseX;
     float mouseY;
@@ -134,7 +135,7 @@ public class PlayerCamera : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
 
         //Aiming
-        if (Input.GetKey(aimKey))
+        if (Input.GetKey(aimKey) || aimDebug)
         {
             isAiming = true;
         }

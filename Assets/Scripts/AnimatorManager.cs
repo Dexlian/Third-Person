@@ -5,7 +5,7 @@ using UnityEngine.Animations.Rigging;
 
 public class AnimatorManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     PlayerCamera playerCamera;
     PlayerMovement playerMovement;
 
