@@ -8,10 +8,9 @@ public class Gun : MonoBehaviour
     [SerializeField] PlayerManager playerManager;
     [SerializeField] PlayerShooting playerShooting;
     [SerializeField] WeaponAnimatorManager weaponAnimatorManager;
-    [SerializeField] GunData gunData;
+    [SerializeField] WeaponItem weaponItem;
     [SerializeField] AudioManager audioManager;
-    [SerializeField] Camera mainCamera;
-    [SerializeField] Transform laserAimModule;
+    [SerializeField] Transform weaponMuzzle;
 
     [Header("Layer Mask")]
     [SerializeField] LayerMask shootableLayers;
@@ -26,14 +25,17 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        playerManager = FindObjectOfType<PlayerManager>();
+        playerManager = GetComponentInParent<PlayerManager>();
+        playerShooting = GetComponentInParent<PlayerShooting>();
+        audioManager = FindObjectOfType<AudioManager>();
+
     }
     private void Start()
     {
         PlayerShooting.shootInput += Shoot;
         PlayerShooting.reloadInput += StartReload;
 
-        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoMagazineText.text = weaponItem.currentAmmo.ToString();
         playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
     }
 
@@ -47,22 +49,22 @@ public class Gun : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
 
-        if (playerShooting.playerShootingFullAuto && gunData.isFullAuto)
+        if (playerShooting.playerShootingFullAuto && weaponItem.isFullAuto)
         {
             Shoot();
         }
 
-        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100);
+        Debug.DrawRay(weaponMuzzle.position, weaponMuzzle.forward * 100);
     }
 
     public void StartReload()
     {
-        if (!gunData.isReloading && gunData.currentAmmo > 0 && playerManager.playerInventory.reservePistolAmmo > 0)
+        if (!weaponItem.isReloading && weaponItem.currentAmmo > 0 && playerManager.playerInventory.reservePistolAmmo > 0)
         {
             StartCoroutine(Reload());
         }
 
-        else if (!gunData.isReloading && gunData.currentAmmo == 0 && playerManager.playerInventory.reservePistolAmmo > 0)
+        else if (!weaponItem.isReloading && weaponItem.currentAmmo == 0 && playerManager.playerInventory.reservePistolAmmo > 0)
         {
             StartCoroutine(ReloadEmpty());
         }
@@ -72,68 +74,70 @@ public class Gun : MonoBehaviour
     {
         int bulletsToReload;
 
-        gunData.isReloading = true;
-        audioManager.Play(gunData.reloadSound.name);
+        weaponItem.isReloading = true;
+        audioManager.Play(weaponItem.reloadSound.name);
 
-        yield return new WaitForSeconds(gunData.reloadTime);
+        yield return new WaitForSeconds(weaponItem.reloadTime);
 
-        bulletsToReload = gunData.magazineSizePlusChamber - gunData.currentAmmo;
+        bulletsToReload = weaponItem.magazineSizePlusChamber - weaponItem.currentAmmo;
 
         if (playerManager.playerInventory.reservePistolAmmo >= bulletsToReload)
         {
-            gunData.currentAmmo = gunData.magazineSizePlusChamber;
+            weaponItem.currentAmmo = weaponItem.magazineSizePlusChamber;
             playerManager.playerInventory.reservePistolAmmo -= bulletsToReload;
         }
         else
         {
-            gunData.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
+            weaponItem.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
             playerManager.playerInventory.reservePistolAmmo = 0;
         }
 
-        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoMagazineText.text = weaponItem.currentAmmo.ToString();
         playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
         playerManager.playerUIManager.ammoCountFade.CheckMagazine();
 
-        gunData.isReloading = false;
+        weaponItem.isReloading = false;
     }
 
     private IEnumerator ReloadEmpty()
     {
         int bulletsToReload;
 
-        gunData.isReloading = true;
-        audioManager.Play(gunData.reloadEmptySound.name);
+        weaponItem.isReloading = true;
+        audioManager.Play(weaponItem.reloadEmptySound.name);
 
-        yield return new WaitForSeconds(gunData.reloadEmptyTime);
+        yield return new WaitForSeconds(weaponItem.reloadEmptyTime);
 
-        bulletsToReload = gunData.magazineSize;
+        bulletsToReload = weaponItem.magazineSize;
 
         if (playerManager.playerInventory.reservePistolAmmo >= bulletsToReload)
         {
-            gunData.currentAmmo = gunData.magazineSize;
+            weaponItem.currentAmmo = weaponItem.magazineSize;
             playerManager.playerInventory.reservePistolAmmo -= bulletsToReload;
         }
         else
         {
-            gunData.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
+            weaponItem.currentAmmo += playerManager.playerInventory.reservePistolAmmo;
             playerManager.playerInventory.reservePistolAmmo = 0;
         }
 
-        playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+        playerManager.playerUIManager.ammoMagazineText.text = weaponItem.currentAmmo.ToString();
         playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
         playerManager.playerUIManager.ammoCountFade.CheckMagazine();
 
-        gunData.isReloading = false;
+        weaponItem.isReloading = false;
     }
 
-    private bool CanShoot() => !gunData.isReloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    private bool CanShoot() => !weaponItem.isReloading && timeSinceLastShot > 1f / (weaponItem.fireRate / 60f);
 
     public void Shoot()
     {
-        if (CanShoot() && gunData.currentAmmo > 0)
+        if (CanShoot() && weaponItem.currentAmmo > 0)
         {
-            if (Physics.Raycast(laserAimModule.position, laserAimModule.forward, out RaycastHit hitInfo, gunData.maximumDistance, shootableLayers))
+            if (Physics.Raycast(weaponMuzzle.position, weaponMuzzle.forward, out RaycastHit hitInfo, weaponItem.maximumDistance, shootableLayers))
             {
+                Debug.Log(hitInfo.collider);
+
                 IDamageable damageable = hitInfo.transform.GetComponentInParent<IDamageable>();
                 IStaggerable staggerable = hitInfo.transform.GetComponentInParent<IStaggerable>();
 
@@ -146,7 +150,7 @@ public class Gun : MonoBehaviour
                     if (hitInfo.collider.gameObject.layer == 9)
                     {
                         zombieEffect.DamageZombieHead();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierHead);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierHead);
                         staggerable?.TryToStagger(1);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -155,8 +159,8 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 10)
                     {
                         zombieEffect.DamageZombieTorso();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierTorso);
-                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierTorso);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierTorso);
+                        staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierTorso);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
@@ -164,8 +168,8 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 11)
                     {
                         zombieEffect.DamageZombieLeftArm();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierArm);
-                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierArm);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierArm);
+                        staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
@@ -173,8 +177,8 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 12)
                     {
                         zombieEffect.DamageZombieRightArm();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierArm);
-                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierArm);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierArm);
+                        staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
@@ -182,8 +186,8 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 13)
                     {
                         zombieEffect.DamageZombieLeftLeg();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierLeg);
-                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierLeg);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierLeg);
+                        staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
@@ -191,8 +195,8 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 14)
                     {
                         zombieEffect.DamageZombieRightLeg();
-                        damageable?.TakeDamage(gunData.damage * zombie.zombieDamageMultiplierLeg);
-                        staggerable?.TryToStagger(gunData.staggerChance * zombie.zombieStaggerMultiplierLeg);
+                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierLeg);
+                        staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
                         bloodSplatter.transform.parent = null;
@@ -200,7 +204,7 @@ public class Gun : MonoBehaviour
                 }
                 else if (zombieEffect == null)
                 {
-                    damageable?.TakeDamage(gunData.damage);
+                    damageable?.TakeDamage(weaponItem.damage);
 
                     if (hitInfo.collider.gameObject.layer == 6)
                     {
@@ -218,22 +222,22 @@ public class Gun : MonoBehaviour
                 }
             }
 
-            gunData.currentAmmo--;
-            playerManager.playerUIManager.ammoMagazineText.text = gunData.currentAmmo.ToString();
+            weaponItem.currentAmmo--;
+            playerManager.playerUIManager.ammoMagazineText.text = weaponItem.currentAmmo.ToString();
             timeSinceLastShot = 0;
             OnGunShot();
         }
 
-        else if (CanShoot() && gunData.currentAmmo == 0)
+        else if (CanShoot() && weaponItem.currentAmmo == 0)
         {
-            audioManager.Play(gunData.shotEmptySound.name);
+            audioManager.Play(weaponItem.shotEmptySound.name);
             timeSinceLastShot = 0;
         }
     }
 
     private void OnGunShot()
     {
-        audioManager.Play(gunData.shotSound.name);
+        audioManager.Play(weaponItem.shotSound.name);
 
         weaponAnimatorManager.ShootWeapon();
     }

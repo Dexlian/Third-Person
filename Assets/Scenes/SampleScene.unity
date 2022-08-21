@@ -33737,6 +33737,7 @@ GameObject:
   - component: {fileID: 1880518023}
   - component: {fileID: 1880518028}
   - component: {fileID: 1880518020}
+  - component: {fileID: 1880518031}
   - component: {fileID: 1880518013}
   - component: {fileID: 1880518029}
   - component: {fileID: 1880518026}
@@ -34223,7 +34224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a603095ae5081ed418e255809c70d7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: e0e9d6ad592773d4885924ef8a8f171b, type: 2}
+  weapon: {fileID: 11400000, guid: 4e98bfdd0c742d64e94d4608a2c5e210, type: 2}
 --- !u!114 &1880518030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34296,6 +34297,27 @@ MonoBehaviour:
   - {fileID: 4385248562239708}
   - {fileID: 4891324237779778}
   - {fileID: 4821532876641490}
+--- !u!114 &1880518031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880518009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98003de4576c7c64ba50ecd1af916b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laser: {fileID: 624372886}
+  laserDot: {fileID: 741579412}
+  laserAimModuleTransform: {fileID: 0}
+  shootableLayers:
+    serializedVersion: 2
+    m_Bits: 65089
+  laserDotLayers:
+    serializedVersion: 2
+    m_Bits: 65024
 --- !u!1 &1897286555
 GameObject:
   m_ObjectHideFlags: 0
@@ -41656,10 +41678,9 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   playerShooting: {fileID: 1880518018}
   weaponAnimatorManager: {fileID: 4693706736959158497}
-  gunData: {fileID: 11400000, guid: 0739a2026b37b014cb2fbea15c54d831, type: 2}
+  weaponItem: {fileID: 0}
   audioManager: {fileID: 1198012936}
-  mainCamera: {fileID: 963194227}
-  laserAimModule: {fileID: 132593311}
+  weaponMuzzle: {fileID: 0}
   shootableLayers:
     serializedVersion: 2
     m_Bits: 65089
@@ -42380,8 +42401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laser: {fileID: 624372886}
-  laserAimModule: {fileID: 132593311}
   laserDot: {fileID: 741579412}
+  laserAimModuleTransform: {fileID: 0}
   shootableLayers:
     serializedVersion: 2
     m_Bits: 65089

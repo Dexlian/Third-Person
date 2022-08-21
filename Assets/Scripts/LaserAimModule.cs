@@ -7,8 +7,8 @@ public class LaserAimModule : MonoBehaviour
     AnimatorManager characterAnimator;
 
     public LineRenderer laser;
-    public Transform laserAimModule;
     public Transform laserDot;
+    public Transform laserAimModuleTransform;
     public LayerMask shootableLayers;
     public LayerMask laserDotLayers;
 
@@ -17,14 +17,24 @@ public class LaserAimModule : MonoBehaviour
         characterAnimator = GetComponentInParent<AnimatorManager>();
     }
 
+    public void AssignLaserAimModule(LaserAimModuleTransform laserAimModuleTransformTarget)
+    {
+        laserAimModuleTransform = laserAimModuleTransformTarget.transform;
+    }
+
     private void LateUpdate()
     {
+        if (laserAimModuleTransform == null)
+        {
+            return;
+        }
+
         if (characterAnimator.isAimedIn)
         {
-            laser.SetPosition(0, laserAimModule.position);
+            laser.SetPosition(0, laserAimModuleTransform.position);
 
             //Laser
-            if (Physics.Raycast(laserAimModule.position, laserAimModule.forward, out RaycastHit laserRayHit, Mathf.Infinity, shootableLayers))
+            if (Physics.Raycast(laserAimModuleTransform.position, laserAimModuleTransform.forward, out RaycastHit laserRayHit, Mathf.Infinity, shootableLayers))
             {
                 laser.SetPosition(1, laserRayHit.point);
             }
@@ -34,7 +44,7 @@ public class LaserAimModule : MonoBehaviour
             }
 
             //Dot
-            if (Physics.Raycast(laserAimModule.position, laserAimModule.forward, out RaycastHit laserDotHit, Mathf.Infinity, laserDotLayers))
+            if (Physics.Raycast(laserAimModuleTransform.position, laserAimModuleTransform.forward, out RaycastHit laserDotHit, Mathf.Infinity, laserDotLayers))
             {
                 laserDot.position = laserDotHit.point;
             }

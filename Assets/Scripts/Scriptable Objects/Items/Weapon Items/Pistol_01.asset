@@ -16,39 +16,40 @@ MonoBehaviour:
   itemModel: {fileID: 7262809773996452340, guid: 13b6ee5733d5e804292d370117877312, type: 3}
   weaponAnimator: {fileID: 22100000, guid: e43e26d5ddba0ff4e9e64cff360a2f2c, type: 2}
   weaponAnimationType: 0
+  hasLaserAimModule: 1
   isFullAuto: 0
   damage: 10
   staggerChance: 0.5
   fireRate: 120
   maximumDistance: 100
   shotSound:
-    name: Shot Sound
+    name: weaponFiveSevenShot
     clip: {fileID: 8300000, guid: 45785534c366df044bed47768c077532, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   shotEmptySound:
-    name: Empty Sound
+    name: weaponFiveSevenShotEmpty
     clip: {fileID: 8300000, guid: 17aaee1d57e66994f950cc6a098f929e, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  currentAmmo: 17
+  currentAmmo: 18
   magazineSize: 17
   magazineSizePlusChamber: 18
   reloadTime: 1
   reloadEmptyTime: 1.3
   reloadSound:
-    name: Reload Sound
+    name: weaponFiveSevenReload
     clip: {fileID: 8300000, guid: fccf2dd06f84ddd45ababa34bda9092a, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   reloadEmptySound:
-    name: Reload Empty Sound
+    name: weaponFiveSevenReloadEmpty
     clip: {fileID: 8300000, guid: 857e119449209124e9b82bb8ca31baf5, type: 3}
     volume: 0.5
     pitch: 1

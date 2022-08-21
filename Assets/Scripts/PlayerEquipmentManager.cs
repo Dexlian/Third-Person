@@ -6,6 +6,8 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     AnimatorManager animatorManager;
     WeaponLoaderSlot weaponLoaderSlot;
+    LaserAimModule laserAimModule;
+    LaserAimModuleTransform laserAimModuleTransform;
 
     [Header("Current Equipment")]
     public WeaponItem weapon;
@@ -21,6 +23,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        laserAimModule = GetComponent<LaserAimModule>();
         LoadWeaponLoaderSlots();
     }
 
@@ -40,6 +43,13 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         weaponLoaderSlot.LoadWeaponModel(weapon);
         animatorManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
+
+        if (weapon.hasLaserAimModule)
+        {
+            laserAimModuleTransform = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<LaserAimModuleTransform>();
+
+            laserAimModule.AssignLaserAimModule(laserAimModuleTransform);
+        }
 
         rightHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<RightHandIKTarget>();
         rightHandHintIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<RightHandIKHintTarget>();

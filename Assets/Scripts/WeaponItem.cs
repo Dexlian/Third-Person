@@ -17,6 +17,9 @@ public class WeaponItem : Item
 
     public WeaponAnimationType weaponAnimationType;
 
+    [Header("Laser Aim Module")]
+    public bool hasLaserAimModule;
+
     [Header("Shooting")]
     public bool isFullAuto;
     public float damage;
