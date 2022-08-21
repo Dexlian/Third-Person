@@ -6,8 +6,19 @@ using UnityEngine.Animations.Rigging;
 public class AnimatorManager : MonoBehaviour
 {
     public Animator animator;
+    public TwoBoneIKConstraint rightHandIK;
+    public TwoBoneIKConstraint leftHandIK;
+
+    RigBuilder rigBuilder;
     PlayerCamera playerCamera;
     PlayerMovement playerMovement;
+
+    public Rig idleLayer;
+    public RigLayerWeaponPoseIdlePistol rigLayerWeaponPoseIdlePistol;
+
+    public MultiPositionConstraint idleMultiPositionConstraint;
+    public MultiParentConstraint idleMultiParentConstraint;
+    public MultiRotationConstraint idleMultiRotationConstraint;
 
     public Rig aimLayer;
 
@@ -22,6 +33,7 @@ public class AnimatorManager : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+        rigBuilder = GetComponent<RigBuilder>();
         playerCamera = GetComponent<PlayerCamera>();
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -77,6 +89,37 @@ public class AnimatorManager : MonoBehaviour
 
         animator.SetFloat("speedHorizontal", snappedHorizontal, locomotionAnimationSmoothTime, Time.deltaTime);
         animator.SetFloat("speedVertical", snappedVertical, locomotionAnimationSmoothTime, Time.deltaTime);
+    }
+
+    public void AssignHandIK(RightHandIKTarget rightTarget, RightHandIKHintTarget rightHintTarget, LeftHandIKTarget leftTarget, LeftHandIKHintTarget leftHintTarget, WeaponPivotIKTarget weaponPivot)
+    {
+        rightHandIK.data.target = rightTarget.transform;
+        rightHandIK.data.hint = rightHintTarget.transform;
+        leftHandIK.data.target = leftTarget.transform;
+        leftHandIK.data.hint = leftHintTarget.transform;
+        idleMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        rigBuilder.Build();
+    }
+
+    public void SetUpRigLayer(int weaponAnimationType)
+    {
+        switch (weaponAnimationType)
+        {
+            //Pistol == 0
+            case 0:
+                //
+                break;
+            //SubmachineGun == 1
+            case 1:
+                //
+                break;
+            //Rifle == 2
+            case 2:
+                //
+                break;
+            default:
+                break;
+        }
     }
 
     private void HandleRigLayer()
