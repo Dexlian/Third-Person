@@ -28,12 +28,11 @@ public class PlayerCamera : MonoBehaviour
     [Header("Quick Turn")]
     public float quickTurnSmooth = 1f;
     public float quickTurnTime = 0f;
-    //quick turn amount of 6.792f is almost 180 degrees
+    //quick turn amount of 13.5f is almost 180 degrees
     public float quickTurnAmount = 6.792f;
     Quaternion targetRotation;
 
     [Header("Aiming")]
-    public KeyCode aimKey = KeyCode.Mouse1;
     public float sensitivityXAiming;
     public float sensitivityYAiming;
     public bool isAiming;
@@ -56,9 +55,6 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-
-        isAiming = false;
     }
 
     void Update()
@@ -72,7 +68,7 @@ public class PlayerCamera : MonoBehaviour
         playerCameraRoot.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
         //Aiming
-        if (isAiming)
+        if (playerManager.isAiming)
         {
             sensitivityX = sensitivityXAiming;
             sensitivityY = sensitivityYAiming;
@@ -133,16 +129,6 @@ public class PlayerCamera : MonoBehaviour
         xRotation -= mouseY * sensitivityY * sensitivityMultiplier;
 
         xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
-
-        //Aiming
-        if (Input.GetKey(aimKey) || aimDebug)
-        {
-            isAiming = true;
-        }
-        else
-        {
-            isAiming = false;
-        }
     }
 
     public void PerformQuickTurn()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserAimModule : MonoBehaviour
 {
-    AnimatorManager characterAnimator;
+    PlayerManager playerManager;
 
     public LineRenderer laser;
     public Transform laserDot;
@@ -14,7 +14,7 @@ public class LaserAimModule : MonoBehaviour
 
     void Start()
     {
-        characterAnimator = GetComponentInParent<AnimatorManager>();
+        playerManager = GetComponentInParent<PlayerManager>();
     }
 
     public void AssignLaserAimModule(LaserAimModuleTransform laserAimModuleTransformTarget)
@@ -29,7 +29,7 @@ public class LaserAimModule : MonoBehaviour
             return;
         }
 
-        if (characterAnimator.isAimedIn)
+        if (playerManager.isAimedIn)
         {
             laser.SetPosition(0, laserAimModuleTransform.position);
 

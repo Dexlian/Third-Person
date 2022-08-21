@@ -5,16 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     InputManager inputManager;
+    PlayerManager playerManager;
     Rigidbody rb;
 
     float horizontalInput;
     float verticalInput;
 
     public Transform orientation;
-    public PlayerCamera cameraMovement;
-
-    [Header("Keybinds")]
-    public KeyCode runKey = KeyCode.LeftShift;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -71,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         inputManager = GetComponent<InputManager>();
+        playerManager = GetComponent<PlayerManager>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -137,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
             isRunning = true;
         }
 
-        else if (verticalInput <= 0f || (isRunning && inputManager.runInput) || cameraMovement.isAiming)
+        else if (verticalInput <= 0f || (isRunning && inputManager.runInput) || playerManager.isAiming)
         {
             isRunning = false;
         }
@@ -196,21 +194,21 @@ public class PlayerMovement : MonoBehaviour
     void StateHandler()
     {
         //Mode - Walking
-        if (isGrounded && !cameraMovement.isAiming && !isRunning && verticalInput >= 0f)
+        if (isGrounded && !playerManager.isAiming && !isRunning && verticalInput >= 0f)
         {
             movementState = MovementState.walking;
             moveSpeed = walkSpeed;
         }
 
         //Mode - Walking Aiming
-        else if (isGrounded && cameraMovement.isAiming)
+        else if (isGrounded && playerManager.isAiming)
         {
             movementState = MovementState.walkingAiming;
             moveSpeed = aimSpeed;
         }
 
         //Mode - Walking Back
-        else if (isGrounded && !cameraMovement.isAiming && !isRunning && verticalInput < 0f)
+        else if (isGrounded && !playerManager.isAiming && !isRunning && verticalInput < 0f)
         {
             movementState = MovementState.walkingBack;
             moveSpeed = walkSpeedBack;

@@ -41,5 +41,7 @@ public class WeaponItem : Item
     public Sound reloadEmptySound;
 
     [HideInInspector] public bool isReloading;
+    [HideInInspector] public bool hasShot;
+    [HideInInspector] public bool hasShotOnEmpty;
 
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LaserMaster : MonoBehaviour
 {
-    AnimatorManager characterAnimator;
+    PlayerManager playerManager;
+    LaserAimModule laserAimModule;
 
     public GameObject laserParent;
 
@@ -13,13 +14,14 @@ public class LaserMaster : MonoBehaviour
 
     void Start()
     {
-        characterAnimator = GetComponent<AnimatorManager>();
+        playerManager = GetComponent<PlayerManager>();
+        laserAimModule = GetComponent<LaserAimModule>();
         laserParent.SetActive(false);
     }
 
     void Update()
     {
-        if (characterAnimator.isAimedIn)
+        if (playerManager.isAimedIn && laserAimModule.laserAimModuleTransform != null)
         {
             laserParent.SetActive(true);
         }

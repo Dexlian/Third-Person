@@ -16,6 +16,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Flags")]
     public bool isPerformingAction;
     public bool isPerformingQuickTurn;
+    public bool isAiming;
+    public bool isAimedIn;
+    public bool isShooting;
+    public bool isReloading;
 
     private void Awake()
     {
@@ -36,7 +40,13 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         inputManager.HandleAllInputs();
+
         isPerformingAction = animator.GetBool("isPerformingAction");
+        isPerformingQuickTurn = animator.GetBool("isPerformingQuickTurn");
+        isAiming = animator.GetBool("isAiming");
+        isAimedIn = animator.GetBool("isAimedIn");
+        isShooting = animator.GetBool("isShooting");
+        isReloading = animator.GetBool("isReloading");
     }
 
     public void TakeDamageZombieHit(int damage)

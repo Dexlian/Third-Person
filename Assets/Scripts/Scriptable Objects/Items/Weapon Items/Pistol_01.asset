@@ -36,7 +36,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  currentAmmo: 18
+  currentAmmo: 17
   magazineSize: 17
   magazineSizePlusChamber: 18
   reloadTime: 1
@@ -56,3 +56,5 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   isReloading: 0
+  hasShot: 0
+  hasShotOnEmpty: 0

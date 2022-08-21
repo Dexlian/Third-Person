@@ -6,7 +6,7 @@ using UnityEngine.Animations.Rigging;
 public class AnimatorManager : MonoBehaviour
 {
     RigBuilder rigBuilder;
-    PlayerCamera playerCamera;
+    PlayerManager playerManager;
     PlayerMovement playerMovement;
 
     [Header("Animator")]
@@ -32,9 +32,8 @@ public class AnimatorManager : MonoBehaviour
     public MultiParentConstraint idleRifleMultiParentConstraint;
     public MultiParentConstraint aimRifleMultiParentConstraint;
 
-    [Header("Flags")]
+    [Header("Aim Time")]
     public float aimTime = 0.3f;
-    public bool isAimedIn;
 
     public int currentAnimationType;
 
@@ -47,7 +46,7 @@ public class AnimatorManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigBuilder = GetComponent<RigBuilder>();
-        playerCamera = GetComponent<PlayerCamera>();
+        playerManager = GetComponent<PlayerManager>();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
@@ -155,7 +154,7 @@ public class AnimatorManager : MonoBehaviour
     {
         if (currentAnimationType == 0)
         {
-            if (playerCamera.isAiming)
+            if (playerManager.isAiming)
             {
                 aimPistolLayer.weight += Time.deltaTime / aimTime;
             }
@@ -167,17 +166,17 @@ public class AnimatorManager : MonoBehaviour
             //Has aimed in?
             if (aimPistolLayer.weight == 1)
             {
-                isAimedIn = true;
+                animator.SetBool("isAimedIn", true);
             }
             else
             {
-                isAimedIn = false;
+                animator.SetBool("isAimedIn", false);
             }
         }
 
         if (currentAnimationType == 1)
         {
-            if (playerCamera.isAiming)
+            if (playerManager.isAiming)
             {
                 aimSMGLayer.weight += Time.deltaTime / aimTime;
             }
@@ -189,17 +188,17 @@ public class AnimatorManager : MonoBehaviour
             //Has aimed in?
             if (aimSMGLayer.weight == 1)
             {
-                isAimedIn = true;
+                animator.SetBool("isAimedIn", true);
             }
             else
             {
-                isAimedIn = false;
+                animator.SetBool("isAimedIn", false);
             }
         }
 
         if (currentAnimationType == 2)
         {
-            if (playerCamera.isAiming)
+            if (playerManager.isAiming)
             {
                 aimRifleLayer.weight += Time.deltaTime / aimTime;
             }
@@ -211,11 +210,11 @@ public class AnimatorManager : MonoBehaviour
             //Has aimed in?
             if (aimRifleLayer.weight == 1)
             {
-                isAimedIn = true;
+                animator.SetBool("isAimedIn", true);
             }
             else
             {
-                isAimedIn = false;
+                animator.SetBool("isAimedIn", false);
             }
         }
     }

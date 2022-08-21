@@ -11554,7 +11554,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.1318946, y: 1}
+    m_SensorSize: {x: 4.119874, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -13968,7 +13968,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0.18, y: 0, z: 0.14}
+    m_Offset: {x: 0.21, y: 0, z: 0.1}
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -16563,7 +16563,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.1318946, y: 1}
+    m_SensorSize: {x: 4.119874, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -27438,7 +27438,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.1318946, y: 1}
+    m_SensorSize: {x: 4.119874, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -33743,7 +33743,6 @@ GameObject:
   - component: {fileID: 1880518026}
   - component: {fileID: 1880518022}
   - component: {fileID: 1880518012}
-  - component: {fileID: 1880518018}
   - component: {fileID: 1880518025}
   - component: {fileID: 1880518027}
   - component: {fileID: 1880518019}
@@ -33806,8 +33805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 366994700}
-  cameraMovement: {fileID: 1880518013}
-  runKey: 304
   moveSpeed: 2
   moveSpeedMultiplier: 10
   walkSpeed: 2
@@ -33836,7 +33833,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880518009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c81042082f525fb4ab3f274037ada1f6, type: 3}
+  m_Script: {fileID: 11500000, guid: a7d5f0b37ebc72845a6c135fc0d43380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraNormal: {fileID: 1719680614}
@@ -33853,8 +33850,7 @@ MonoBehaviour:
   maxXRotation: 80
   quickTurnSmooth: 1
   quickTurnTime: 0
-  quickTurnAmount: 6.792
-  aimKey: 324
+  quickTurnAmount: 13.5
   sensitivityXAiming: 4
   sensitivityYAiming: 4
   isAiming: 0
@@ -33915,22 +33911,7 @@ MonoBehaviour:
   idleRifleMultiParentConstraint: {fileID: 1151321291}
   aimRifleMultiParentConstraint: {fileID: 1897286558}
   aimTime: 0.3
-  isAimedIn: 0
   currentAnimationType: 0
---- !u!114 &1880518018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880518009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6d92a01afe7eb849bc926a402477e9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerShootingFullAuto: 0
-  reloadKey: 114
 --- !u!95 &1880518019
 Animator:
   serializedVersion: 4
@@ -34020,6 +34001,10 @@ MonoBehaviour:
   playerHealth: 100
   isPerformingAction: 0
   isPerformingQuickTurn: 0
+  isAiming: 0
+  isAimedIn: 0
+  isShooting: 0
+  isReloading: 0
 --- !u!114 &1880518023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34212,6 +34197,10 @@ MonoBehaviour:
   horizontalCameraInput: 0
   runInput: 0
   quickTurnInput: 0
+  aimInput: 0
+  aimDebug: 0
+  shootInput: 0
+  reloadInput: 0
 --- !u!114 &1880518029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34511,7 +34500,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0.13, y: 0.14, z: 0.15}
+    m_Offset: {x: 0.13, y: 0.14, z: -0.06}
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -41676,7 +41665,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 0}
-  playerShooting: {fileID: 1880518018}
   weaponAnimatorManager: {fileID: 4693706736959158497}
   weaponItem: {fileID: 0}
   audioManager: {fileID: 1198012936}

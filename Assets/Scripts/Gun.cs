@@ -6,7 +6,6 @@ public class Gun : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PlayerManager playerManager;
-    [SerializeField] PlayerShooting playerShooting;
     [SerializeField] WeaponAnimatorManager weaponAnimatorManager;
     [SerializeField] WeaponItem weaponItem;
     [SerializeField] AudioManager audioManager;
@@ -26,35 +25,60 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         playerManager = GetComponentInParent<PlayerManager>();
-        playerShooting = GetComponentInParent<PlayerShooting>();
         audioManager = FindObjectOfType<AudioManager>();
 
     }
     private void Start()
     {
-        PlayerShooting.shootInput += Shoot;
-        PlayerShooting.reloadInput += StartReload;
+        weaponItem.isReloading = false;
+        weaponItem.hasShot = false;
+        weaponItem.hasShotOnEmpty = false;
 
         playerManager.playerUIManager.ammoMagazineText.text = weaponItem.currentAmmo.ToString();
         playerManager.playerUIManager.ammoReserveText.text = playerManager.playerInventory.reservePistolAmmo.ToString();
-    }
-
-    private void OnDestroy()
-    {
-        PlayerShooting.shootInput -= Shoot;
-        PlayerShooting.reloadInput -= StartReload;
     }
 
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
 
-        if (playerShooting.playerShootingFullAuto && weaponItem.isFullAuto)
+        CheckForShootInput();
+        ResetBoolHasShot();
+
+        CheckForReloadInput();
+    }
+
+    private void CheckForShootInput()
+    {
+        //Semi-Automatic
+        if (!weaponItem.isFullAuto && !weaponItem.hasShot && playerManager.isAimedIn && playerManager.isShooting)
         {
+            weaponItem.hasShot = true;
             Shoot();
         }
 
-        Debug.DrawRay(weaponMuzzle.position, weaponMuzzle.forward * 100);
+        //Full-Auto
+        if (weaponItem.isFullAuto && playerManager.isAimedIn && playerManager.isShooting && !weaponItem.hasShotOnEmpty)
+        {
+            Shoot();
+        }
+    }
+
+    private void ResetBoolHasShot()
+    {
+        if (!playerManager.isShooting)
+        {
+            weaponItem.hasShot = false;
+            weaponItem.hasShotOnEmpty = false;
+        }
+    }
+
+    private void CheckForReloadInput()
+    {
+        if (!weaponItem.isReloading && playerManager.isAimedIn && playerManager.isReloading)
+        {
+            StartReload();
+        }
     }
 
     public void StartReload()
@@ -74,7 +98,9 @@ public class Gun : MonoBehaviour
     {
         int bulletsToReload;
 
+        playerManager.isReloading = false;
         weaponItem.isReloading = true;
+
         audioManager.Play(weaponItem.reloadSound.name);
 
         yield return new WaitForSeconds(weaponItem.reloadTime);
@@ -103,7 +129,9 @@ public class Gun : MonoBehaviour
     {
         int bulletsToReload;
 
+        playerManager.isReloading = false;
         weaponItem.isReloading = true;
+
         audioManager.Play(weaponItem.reloadEmptySound.name);
 
         yield return new WaitForSeconds(weaponItem.reloadEmptyTime);
@@ -136,8 +164,6 @@ public class Gun : MonoBehaviour
         {
             if (Physics.Raycast(weaponMuzzle.position, weaponMuzzle.forward, out RaycastHit hitInfo, weaponItem.maximumDistance, shootableLayers))
             {
-                Debug.Log(hitInfo.collider);
-
                 IDamageable damageable = hitInfo.transform.GetComponentInParent<IDamageable>();
                 IStaggerable staggerable = hitInfo.transform.GetComponentInParent<IStaggerable>();
 
@@ -232,6 +258,7 @@ public class Gun : MonoBehaviour
         {
             audioManager.Play(weaponItem.shotEmptySound.name);
             timeSinceLastShot = 0;
+            weaponItem.hasShotOnEmpty = true;
         }
     }
 

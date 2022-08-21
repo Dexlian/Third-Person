@@ -41,6 +41,11 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     private void LoadCurrentWeapon()
     {
+        if (weapon == null)
+        {
+            return;
+        }
+
         weaponLoaderSlot.LoadWeaponModel(weapon);
         animatorManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
 
