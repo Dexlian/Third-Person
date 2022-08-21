@@ -5,27 +5,40 @@ using UnityEngine.Animations.Rigging;
 
 public class AnimatorManager : MonoBehaviour
 {
-    public Animator animator;
-    public TwoBoneIKConstraint rightHandIK;
-    public TwoBoneIKConstraint leftHandIK;
-
     RigBuilder rigBuilder;
     PlayerCamera playerCamera;
     PlayerMovement playerMovement;
 
-    public Rig idleLayer;
-    public RigLayerWeaponPoseIdlePistol rigLayerWeaponPoseIdlePistol;
+    [Header("Animator")]
+    public Animator animator;
 
-    public MultiPositionConstraint idleMultiPositionConstraint;
-    public MultiParentConstraint idleMultiParentConstraint;
-    public MultiRotationConstraint idleMultiRotationConstraint;
+    [Header("Hand IK")]
+    public TwoBoneIKConstraint rightHandIK;
+    public TwoBoneIKConstraint leftHandIK;
 
-    public Rig aimLayer;
+    [Header("Layers")]
+    public Rig idlePistolLayer;
+    public Rig aimPistolLayer;
+    public Rig idleSMGLayer;
+    public Rig aimSMGLayer;
+    public Rig idleRifleLayer;
+    public Rig aimRifleLayer;
 
-    const float locomotionAnimationSmoothTime = 0.1f;
+    [Header("Components")]
+    public MultiParentConstraint idlePistolMultiParentConstraint;
+    public MultiParentConstraint aimPistolMultiParentConstraint;
+    public MultiParentConstraint idleSMGMultiParentConstraint;
+    public MultiParentConstraint aimSMGMultiParentConstraint;
+    public MultiParentConstraint idleRifleMultiParentConstraint;
+    public MultiParentConstraint aimRifleMultiParentConstraint;
 
+    [Header("Flags")]
     public float aimTime = 0.3f;
     public bool isAimedIn;
+
+    public int currentAnimationType;
+
+    const float locomotionAnimationSmoothTime = 0.1f;
 
     float snappedHorizontal;
     float snappedVertical;
@@ -40,7 +53,7 @@ public class AnimatorManager : MonoBehaviour
 
     void Update()
     {
-        HandleRigLayer();
+        HandleRigLayer(currentAnimationType);
     }
 
     public void PlayAnimationWithoutRootMotion(string targetAnimation, bool isPerformingAction)
@@ -91,13 +104,20 @@ public class AnimatorManager : MonoBehaviour
         animator.SetFloat("speedVertical", snappedVertical, locomotionAnimationSmoothTime, Time.deltaTime);
     }
 
-    public void AssignHandIK(RightHandIKTarget rightTarget, RightHandIKHintTarget rightHintTarget, LeftHandIKTarget leftTarget, LeftHandIKHintTarget leftHintTarget, WeaponPivotIKTarget weaponPivot)
+    public void AssignHandIK(RightHandIKTarget rightTarget, RightHandIKHintTarget rightHintTarget,
+                             LeftHandIKTarget leftTarget, LeftHandIKHintTarget leftHintTarget,
+                             WeaponPivotIKTarget weaponPivot)
     {
         rightHandIK.data.target = rightTarget.transform;
         rightHandIK.data.hint = rightHintTarget.transform;
         leftHandIK.data.target = leftTarget.transform;
         leftHandIK.data.hint = leftHintTarget.transform;
-        idleMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        idlePistolMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        aimPistolMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        idleSMGMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        aimSMGMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        idleRifleMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
+        aimRifleMultiParentConstraint.data.constrainedObject = weaponPivot.transform;
         rigBuilder.Build();
     }
 
@@ -107,40 +127,96 @@ public class AnimatorManager : MonoBehaviour
         {
             //Pistol == 0
             case 0:
-                //
+                currentAnimationType = 0;
+                idlePistolLayer.weight = 1;
+                idleSMGLayer.weight = 0;
+                idleRifleLayer.weight = 0;
                 break;
             //SubmachineGun == 1
             case 1:
-                //
+                currentAnimationType = 1;
+                idlePistolLayer.weight = 0;
+                idleSMGLayer.weight = 1;
+                idleRifleLayer.weight = 0;
                 break;
             //Rifle == 2
             case 2:
-                //
+                currentAnimationType = 2;
+                idlePistolLayer.weight = 0;
+                idleSMGLayer.weight = 0;
+                idleRifleLayer.weight = 1;
                 break;
             default:
                 break;
         }
     }
 
-    private void HandleRigLayer()
+    private void HandleRigLayer(int currentAnimationType)
     {
-        if (playerCamera.isAiming)
+        if (currentAnimationType == 0)
         {
-            aimLayer.weight += Time.deltaTime / aimTime;
-        }
-        else
-        {
-            aimLayer.weight -= Time.deltaTime / aimTime;
+            if (playerCamera.isAiming)
+            {
+                aimPistolLayer.weight += Time.deltaTime / aimTime;
+            }
+            else
+            {
+                aimPistolLayer.weight -= Time.deltaTime / aimTime;
+            }
+
+            //Has aimed in?
+            if (aimPistolLayer.weight == 1)
+            {
+                isAimedIn = true;
+            }
+            else
+            {
+                isAimedIn = false;
+            }
         }
 
-        //Has aimed in?
-        if (aimLayer.weight == 1)
+        if (currentAnimationType == 1)
         {
-            isAimedIn = true;
+            if (playerCamera.isAiming)
+            {
+                aimSMGLayer.weight += Time.deltaTime / aimTime;
+            }
+            else
+            {
+                aimSMGLayer.weight -= Time.deltaTime / aimTime;
+            }
+
+            //Has aimed in?
+            if (aimSMGLayer.weight == 1)
+            {
+                isAimedIn = true;
+            }
+            else
+            {
+                isAimedIn = false;
+            }
         }
-        else
+
+        if (currentAnimationType == 2)
         {
-            isAimedIn = false;
+            if (playerCamera.isAiming)
+            {
+                aimRifleLayer.weight += Time.deltaTime / aimTime;
+            }
+            else
+            {
+                aimRifleLayer.weight -= Time.deltaTime / aimTime;
+            }
+
+            //Has aimed in?
+            if (aimRifleLayer.weight == 1)
+            {
+                isAimedIn = true;
+            }
+            else
+            {
+                isAimedIn = false;
+            }
         }
     }
 }
