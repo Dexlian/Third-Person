@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponAnimatorManager : MonoBehaviour
 {
     Animator weaponAnimator;
-    [SerializeField] GunData gunData;
+    [SerializeField] WeaponItem weaponItem;
 
     [Header("Weapon FX")]
     public GameObject weaponMuzzleFlashFX;
@@ -22,7 +22,7 @@ public class WeaponAnimatorManager : MonoBehaviour
 
     private void Update()
     {
-        if (gunData.currentAmmo == 0)
+        if (weaponItem.currentAmmo == 0)
         {
             weaponAnimator.SetBool("Magazine_Empty", true);
         }
@@ -34,7 +34,7 @@ public class WeaponAnimatorManager : MonoBehaviour
 
     public void ShootWeapon()
     {
-        if (gunData.currentAmmo == 0)
+        if (weaponItem.currentAmmo == 0)
         {
             weaponAnimator.Play("Shoot_Last_Bullet");
         }

@@ -25,6 +25,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         playerManager = GetComponentInParent<PlayerManager>();
+        weaponAnimatorManager = GetComponent<WeaponAnimatorManager>();
         audioManager = FindObjectOfType<AudioManager>();
 
     }

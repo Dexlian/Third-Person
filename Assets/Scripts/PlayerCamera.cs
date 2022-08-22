@@ -57,15 +57,26 @@ public class PlayerCamera : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void FixedUpdate()
+    {
+        //Quick Turn
+        quickTurnTime += Time.deltaTime;
+        if (playerManager.isPerformingQuickTurn)
+        {
+            yRotation = Mathf.Lerp(yRotation, yRotation + quickTurnAmount, quickTurnTime);
+        }
+
+        if (quickTurnTime > 1f)
+        {
+            playerManager.isPerformingQuickTurn = false;
+        }
+    }
+
     void Update()
     {
         PlayerInput();
 
-        //rotate player object
-        gameObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-        //rotate camera root
-        playerCameraRoot.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
         //Aiming
         if (playerManager.isAiming)
@@ -105,19 +116,13 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        //Quick Turn
-        quickTurnTime += Time.deltaTime;
-        if (playerManager.isPerformingQuickTurn)
-        {
-            yRotation = Mathf.Lerp(yRotation, yRotation + quickTurnAmount, quickTurnTime);
-        }
+        //rotate player object
+        gameObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-        if (quickTurnTime > 1f)
-        {
-            playerManager.isPerformingQuickTurn = false;
-        }
+        //rotate camera root
+        playerCameraRoot.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 
     void PlayerInput()
