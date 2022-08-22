@@ -26,8 +26,6 @@ public class WeaponItem : Item
     public float staggerChance;
     public float fireRate;
     public float maximumDistance;
-    public Sound shotSound;
-    public Sound shotEmptySound;
 
     [Header("Ammo")]
     public int currentAmmo;
@@ -37,8 +35,13 @@ public class WeaponItem : Item
     [Header("Reloading")]
     public float reloadTime;
     public float reloadEmptyTime;
-    public Sound reloadSound;
-    public Sound reloadEmptySound;
+
+
+    [Header("Sounds")]
+    public AudioClip shotAudioClip;
+    public AudioClip shotEmptyAudioClip;
+    public AudioClip reloadAudioClip;
+    public AudioClip reloadEmptyAudioClip;
 
     [HideInInspector] public bool isReloading;
     [HideInInspector] public bool hasShot;

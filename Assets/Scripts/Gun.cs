@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     [SerializeField] PlayerManager playerManager;
     [SerializeField] WeaponAnimatorManager weaponAnimatorManager;
     [SerializeField] WeaponItem weaponItem;
-    [SerializeField] AudioManager audioManager;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] Transform weaponMuzzle;
 
     [Header("Layer Mask")]
@@ -20,17 +20,28 @@ public class Gun : MonoBehaviour
     public GameObject bulletImpactNormalFX;
     public GameObject bulletImpactMetalFX;
 
+    [Header("SFX")]
+    AudioClip shotAudioClip;
+    AudioClip shotEmptyAudioClip;
+    AudioClip reloadAudioClip;
+    AudioClip reloadEmptyAudioClip;
+
     private float timeSinceLastShot;
 
     private void Awake()
     {
         playerManager = GetComponentInParent<PlayerManager>();
         weaponAnimatorManager = GetComponent<WeaponAnimatorManager>();
-        audioManager = FindObjectOfType<AudioManager>();
+        audioSource = GetComponent<AudioSource>();
 
     }
     private void Start()
     {
+        shotAudioClip = weaponItem.shotAudioClip;
+        shotEmptyAudioClip = weaponItem.shotEmptyAudioClip;
+        reloadAudioClip = weaponItem.reloadAudioClip;
+        reloadEmptyAudioClip = weaponItem.reloadEmptyAudioClip;
+
         weaponItem.isReloading = false;
         weaponItem.hasShot = false;
         weaponItem.hasShotOnEmpty = false;
@@ -102,7 +113,7 @@ public class Gun : MonoBehaviour
         playerManager.isReloading = false;
         weaponItem.isReloading = true;
 
-        audioManager.Play(weaponItem.reloadSound.name);
+        audioSource.PlayOneShot(reloadAudioClip);
 
         yield return new WaitForSeconds(weaponItem.reloadTime);
 
@@ -133,7 +144,7 @@ public class Gun : MonoBehaviour
         playerManager.isReloading = false;
         weaponItem.isReloading = true;
 
-        audioManager.Play(weaponItem.reloadEmptySound.name);
+        audioSource.PlayOneShot(reloadEmptyAudioClip);
 
         yield return new WaitForSeconds(weaponItem.reloadEmptyTime);
 
@@ -257,7 +268,8 @@ public class Gun : MonoBehaviour
 
         else if (CanShoot() && weaponItem.currentAmmo == 0)
         {
-            audioManager.Play(weaponItem.shotEmptySound.name);
+            audioSource.PlayOneShot(shotEmptyAudioClip);
+
             timeSinceLastShot = 0;
             weaponItem.hasShotOnEmpty = true;
         }
@@ -265,7 +277,7 @@ public class Gun : MonoBehaviour
 
     private void OnGunShot()
     {
-        audioManager.Play(weaponItem.shotSound.name);
+        audioSource.PlayOneShot(shotAudioClip);
 
         weaponAnimatorManager.ShootWeapon();
     }

@@ -22,39 +22,15 @@ MonoBehaviour:
   staggerChance: 0.5
   fireRate: 120
   maximumDistance: 100
-  shotSound:
-    name: weaponFiveSevenShot
-    clip: {fileID: 8300000, guid: 45785534c366df044bed47768c077532, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  shotEmptySound:
-    name: weaponFiveSevenShotEmpty
-    clip: {fileID: 8300000, guid: 17aaee1d57e66994f950cc6a098f929e, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  currentAmmo: 17
+  currentAmmo: 16
   magazineSize: 17
   magazineSizePlusChamber: 18
   reloadTime: 1
   reloadEmptyTime: 1.3
-  reloadSound:
-    name: weaponFiveSevenReload
-    clip: {fileID: 8300000, guid: fccf2dd06f84ddd45ababa34bda9092a, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  reloadEmptySound:
-    name: weaponFiveSevenReloadEmpty
-    clip: {fileID: 8300000, guid: 857e119449209124e9b82bb8ca31baf5, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
+  shotAudioClip: {fileID: 8300000, guid: 45785534c366df044bed47768c077532, type: 3}
+  shotEmptyAudioClip: {fileID: 8300000, guid: 17aaee1d57e66994f950cc6a098f929e, type: 3}
+  reloadAudioClip: {fileID: 8300000, guid: fccf2dd06f84ddd45ababa34bda9092a, type: 3}
+  reloadEmptyAudioClip: {fileID: 8300000, guid: 857e119449209124e9b82bb8ca31baf5, type: 3}
   isReloading: 0
   hasShot: 0
   hasShotOnEmpty: 0
