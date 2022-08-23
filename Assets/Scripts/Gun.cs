@@ -115,6 +115,8 @@ public class Gun : MonoBehaviour
 
         audioSource.PlayOneShot(reloadAudioClip);
 
+        weaponAnimatorManager.ReloadWeapon();
+
         yield return new WaitForSeconds(weaponItem.reloadTime);
 
         bulletsToReload = weaponItem.magazineSizePlusChamber - weaponItem.currentAmmo;
@@ -145,6 +147,8 @@ public class Gun : MonoBehaviour
         weaponItem.isReloading = true;
 
         audioSource.PlayOneShot(reloadEmptyAudioClip);
+
+        weaponAnimatorManager.ReloadWeapon();
 
         yield return new WaitForSeconds(weaponItem.reloadEmptyTime);
 

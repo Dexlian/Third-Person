@@ -48,4 +48,13 @@ public class WeaponAnimatorManager : MonoBehaviour
         GameObject bulletCase = Instantiate(weaponBulletCaseFX, weaponBulletCaseTransform);
         bulletCase.transform.parent = null;
     }
+
+    public void ReloadWeapon()
+    {
+        if (weaponItem.currentAmmo == 0)
+        {
+            weaponAnimator.Play("Reload_Empty");
+        }
+        else weaponAnimator.Play("Reload");
+    }
 }

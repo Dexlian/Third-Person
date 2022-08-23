@@ -11554,7 +11554,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2422063, y: 1}
+    m_SensorSize: {x: 1.7769986, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16632,7 +16632,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2422063, y: 1}
+    m_SensorSize: {x: 1.7769986, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -27507,7 +27507,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2422063, y: 1}
+    m_SensorSize: {x: 1.7769986, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34282,7 +34282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a603095ae5081ed418e255809c70d7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: e0e9d6ad592773d4885924ef8a8f171b, type: 2}
+  weapon: {fileID: 11400000, guid: 4e98bfdd0c742d64e94d4608a2c5e210, type: 2}
 --- !u!114 &1880518030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34290,7 +34290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880518009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
