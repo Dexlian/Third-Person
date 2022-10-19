@@ -192,7 +192,7 @@ public class Gun : MonoBehaviour
                     if (hitInfo.collider.gameObject.layer == 9)
                     {
                         zombieEffect.DamageZombieHead();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierHead);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultHead * zombie.zombieDamageMultiplierHead);
                         staggerable?.TryToStagger(1);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -201,7 +201,7 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 10)
                     {
                         zombieEffect.DamageZombieTorso();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierTorso);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultTorso * zombie.zombieDamageMultiplierTorso);
                         staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierTorso);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -210,7 +210,7 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 11)
                     {
                         zombieEffect.DamageZombieLeftArm();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierArm);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultArm * zombie.zombieDamageMultiplierArm);
                         staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -219,7 +219,7 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 12)
                     {
                         zombieEffect.DamageZombieRightArm();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierArm);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultArm * zombie.zombieDamageMultiplierArm);
                         staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierArm);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -228,7 +228,7 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 13)
                     {
                         zombieEffect.DamageZombieLeftLeg();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierLeg);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultLeg * zombie.zombieDamageMultiplierLeg);
                         staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);
@@ -237,7 +237,7 @@ public class Gun : MonoBehaviour
                     else if (hitInfo.collider.gameObject.layer == 14)
                     {
                         zombieEffect.DamageZombieRightLeg();
-                        damageable?.TakeDamage(weaponItem.damage * zombie.zombieDamageMultiplierLeg);
+                        damageable?.TakeDamage(weaponItem.damage * weaponItem.damageMultLeg * zombie.zombieDamageMultiplierLeg);
                         staggerable?.TryToStagger(weaponItem.staggerChance * zombie.zombieStaggerMultiplierLeg);
 
                         GameObject bloodSplatter = Instantiate(bloodSplatterFX, hitInfo.transform);

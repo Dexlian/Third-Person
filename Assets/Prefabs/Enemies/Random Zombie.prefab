@@ -6237,15 +6237,15 @@ MonoBehaviour:
   attackTimer: 0
   canAttack: 0
   zombieHealth: {fileID: 0}
-  zombieDamageMultiplierHead: 5
+  zombieDamageMultiplierHead: 1
   zombieDamageMultiplierTorso: 1
-  zombieDamageMultiplierArm: 0.5
-  zombieDamageMultiplierLeg: 0.5
+  zombieDamageMultiplierArm: 1
+  zombieDamageMultiplierLeg: 1
   isDead: 0
   zombieStaggerMultiplierHead: 1
   zombieStaggerMultiplierTorso: 1
   zombieStaggerMultiplierArm: 1
-  zombieStaggerMultiplierLeg: 2
+  zombieStaggerMultiplierLeg: 1
 --- !u!114 &7519610712301177585
 MonoBehaviour:
   m_ObjectHideFlags: 0

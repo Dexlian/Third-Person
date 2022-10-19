@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     Animator animator;
     PlayerCamera playerCamera;
     PlayerControls playerControls;
-    PlayerManager playerManager;
+    PlayerManager player;
 
     [Header("Player Movement")]
     public float verticalMovementInput;
@@ -27,13 +27,14 @@ public class InputManager : MonoBehaviour
     public bool aimDebug;
     public bool shootInput;
     public bool reloadInput;
+    public bool interactionInput;
 
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
         animator = GetComponent<Animator>();
         playerCamera = GetComponent<PlayerCamera>();
-        playerManager = GetComponent<PlayerManager>();
+        player = GetComponent<PlayerManager>();
     }
 
     private void OnEnable()
@@ -51,6 +52,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Shoot.performed += i => shootInput = true;
             playerControls.PlayerActions.Shoot.canceled += i => shootInput = false;
             playerControls.PlayerActions.Reload.performed += i => reloadInput = true;
+            playerControls.PlayerActions.Interact.performed += i => interactionInput = true;
         }
 
         playerControls.Enable();
@@ -71,6 +73,7 @@ public class InputManager : MonoBehaviour
         HandleAimInput();
         HandleShootInput();
         HandleReloadInput();
+        HandleInteractionInput();
     }
 
     private void HandleMovementInput()
@@ -96,7 +99,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleQuickTurnInput()
     {
-        if (playerManager.isPerformingAction)
+        if (player.isPerformingAction)
         {
             quickTurnInput = false;
             return;
@@ -145,6 +148,17 @@ public class InputManager : MonoBehaviour
         else
         {
             animator.SetBool("isReloading", false);
+        }
+    }
+
+    private void HandleInteractionInput()
+    {
+        if (interactionInput)
+        {
+            if (!player.canInteract)
+            {
+                interactionInput = false;
+            }
         }
     }
 }

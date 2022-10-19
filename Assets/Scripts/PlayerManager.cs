@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    InputManager inputManager;
+    public InputManager inputManager;
     Animator animator;
     public PlayerInventory playerInventory;
     public PlayerUIManager playerUIManager;
@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     public bool isAimedIn;
     public bool isShooting;
     public bool isReloading;
+    public bool canInteract;
 
     private void Awake()
     {

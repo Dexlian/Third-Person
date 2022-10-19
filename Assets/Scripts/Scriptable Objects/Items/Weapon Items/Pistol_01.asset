@@ -22,6 +22,14 @@ MonoBehaviour:
   staggerChance: 0.5
   fireRate: 120
   maximumDistance: 100
+  damageMultHead: 5
+  damageMultTorso: 1
+  damageMultArm: 1
+  damageMultLeg: 0.5
+  staggerMultHead: 1
+  staggerMultTorso: 1
+  staggerMultArm: 1
+  staggerMultLeg: 2
   currentAmmo: 18
   magazineSize: 17
   magazineSizePlusChamber: 18

@@ -27,6 +27,16 @@ public class WeaponItem : Item
     public float fireRate;
     public float maximumDistance;
 
+    [Header("Multipliers")]
+    public float damageMultHead;
+    public float damageMultTorso;
+    public float damageMultArm;
+    public float damageMultLeg;
+    public float staggerMultHead;
+    public float staggerMultTorso;
+    public float staggerMultArm;
+    public float staggerMultLeg;
+
     [Header("Ammo")]
     public int currentAmmo;
     public int magazineSize;

@@ -10,7 +10,7 @@ public class InteractableObject : MonoBehaviour
     protected Collider interactableCollider; //The collider enabling the interaction when the player is close enough for interaction
     [SerializeField] protected GameObject interactableCanvas; //The image indicating the player can interact with this object
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         // OPTIONAL: Check for specific layer of collider
 
@@ -22,10 +22,23 @@ public class InteractableObject : MonoBehaviour
         if (player != null)
         {
             interactableCanvas.SetActive(true);
+            player.canInteract = true;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerStay(Collider other)
+    {
+        if (player != null)
+        {
+            if (player.inputManager.interactionInput)
+            {
+                Interact(player);
+                player.inputManager.interactionInput = false;
+            }
+        }
+    }
+
+    protected virtual void OnTriggerExit(Collider other)
     {
         // OPTIONAL: Check for specific layer of collider
 
@@ -37,6 +50,12 @@ public class InteractableObject : MonoBehaviour
         if (player != null)
         {
             interactableCanvas.SetActive(false);
+            player.canInteract = false;
         }
+    }
+
+    protected virtual void Interact(PlayerManager player)
+    {
+        Debug.Log("You interacted.");
     }
 }
