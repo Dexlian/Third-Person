@@ -12,28 +12,48 @@ public class InteractableObject : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        // OPTIONAL: Check for specific layer of collider
-
         if (player == null)
         {
             player = other.GetComponent<PlayerManager>();
         }
 
-        if (player != null)
+        if (other.gameObject.CompareTag("Player"))
         {
-            interactableCanvas.SetActive(true);
-            player.canInteract = true;
+            if (player != null && !player.isAiming)
+            {
+                interactableCanvas.SetActive(true);
+                player.canInteract = true;
+            }
         }
     }
 
     protected virtual void OnTriggerStay(Collider other)
     {
-        if (player != null)
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (player.inputManager.interactionInput)
+            if (player != null)
             {
-                Interact(player);
-                player.inputManager.interactionInput = false;
+                if (!player.isAiming)
+                {
+                    if (interactableCanvas.activeSelf == false)
+                    {
+                        interactableCanvas.SetActive(true);
+                    }
+
+                    if (player.inputManager.interactionInput)
+                    {
+                        Interact(player);
+                        player.inputManager.interactionInput = false;
+                    }
+                }
+                else
+                {
+                    if (interactableCanvas.activeInHierarchy == true)
+                    {
+                        interactableCanvas.SetActive(false);
+                    }
+                }
+
             }
         }
     }
@@ -41,16 +61,18 @@ public class InteractableObject : MonoBehaviour
     protected virtual void OnTriggerExit(Collider other)
     {
         // OPTIONAL: Check for specific layer of collider
-
-        if (player == null)
+        if (other.gameObject.CompareTag("Player"))
         {
-            player = other.GetComponent<PlayerManager>();
-        }
+            if (player == null)
+            {
+                player = other.GetComponent<PlayerManager>();
+            }
 
-        if (player != null)
-        {
-            interactableCanvas.SetActive(false);
-            player.canInteract = false;
+            if (player != null)
+            {
+                interactableCanvas.SetActive(false);
+                player.canInteract = false;
+            }
         }
     }
 

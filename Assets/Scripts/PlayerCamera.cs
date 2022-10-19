@@ -35,8 +35,6 @@ public class PlayerCamera : MonoBehaviour
     [Header("Aiming")]
     public float sensitivityXAiming;
     public float sensitivityYAiming;
-    public bool isAiming;
-    public bool aimDebug;
 
     float mouseX;
     float mouseY;

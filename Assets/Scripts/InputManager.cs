@@ -155,7 +155,7 @@ public class InputManager : MonoBehaviour
     {
         if (interactionInput)
         {
-            if (!player.canInteract)
+            if (!player.canInteract || player.isAiming)
             {
                 interactionInput = false;
             }
