@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    PlayerManager playerManager;
+    PlayerManager player;
 
     [Header("Keybinds")]
     public KeyCode checkAmmoKey = KeyCode.T;
@@ -15,19 +15,24 @@ public class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
-        playerManager = GetComponent<PlayerManager>();
-        reservePistolAmmo = startingReservePistolAmmo;
+        player = GetComponent<PlayerManager>();
     }
     private void Start()
     {
-
+        reservePistolAmmo = startingReservePistolAmmo;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(checkAmmoKey))
         {
-            playerManager.playerUIManager.ammoCountFade.CheckMagazineAndReserve();
+            player.playerUIManager.ammoCountFade.CheckMagazineAndReserve();
         }
+    }
+
+    public void AddPistolAmmo(int ammo)
+    {
+        reservePistolAmmo += ammo;
+        player.playerUIManager.ammoReserveText.text = player.playerInventory.reservePistolAmmo.ToString();
     }
 }

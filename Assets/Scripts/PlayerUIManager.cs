@@ -15,6 +15,9 @@ public class PlayerUIManager : MonoBehaviour
     public Text ammoMagazineText;
     public Text ammoReserveText;
 
+    [Header("Item Pickup")]
+    public GameObject itemIcon;
+
     private void Awake()
     {
         playerManager = FindObjectOfType<PlayerManager>();

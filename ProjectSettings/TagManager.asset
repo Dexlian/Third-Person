@@ -8,6 +8,8 @@ TagManager:
   - Shootable
   - FloorNormal
   - FloorMetal
+  - ItemPickup
+  - Door
   layers:
   - Default
   - TransparentFX

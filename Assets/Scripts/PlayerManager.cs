@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public InputManager inputManager;
     Animator animator;
+    public PlayerInteractionManager playerInteraction;
     public PlayerInventory playerInventory;
     public PlayerUIManager playerUIManager;
     PlayerSounds playerSounds;
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     {
         inputManager = GetComponent<InputManager>();
         animator = GetComponent<Animator>();
+        playerInteraction = GetComponent<PlayerInteractionManager>();
         playerInventory = GetComponent<PlayerInventory>();
         playerUIManager = GetComponent<PlayerUIManager>();
         playerSounds = GetComponent<PlayerSounds>();

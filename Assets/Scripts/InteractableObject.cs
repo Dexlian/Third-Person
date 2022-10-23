@@ -22,7 +22,8 @@ public class InteractableObject : MonoBehaviour
             if (player != null && !player.isAiming)
             {
                 interactableCanvas.SetActive(true);
-                player.canInteract = true;
+                player.playerUIManager.itemIcon.SetActive(true);
+                //player.canInteract = true;
             }
         }
     }
@@ -35,9 +36,10 @@ public class InteractableObject : MonoBehaviour
             {
                 if (!player.isAiming)
                 {
-                    if (interactableCanvas.activeSelf == false)
+                    if (interactableCanvas.activeInHierarchy == false)
                     {
                         interactableCanvas.SetActive(true);
+                        player.playerUIManager.itemIcon.SetActive(true);
                     }
 
                     if (player.inputManager.interactionInput)
@@ -51,6 +53,7 @@ public class InteractableObject : MonoBehaviour
                     if (interactableCanvas.activeInHierarchy == true)
                     {
                         interactableCanvas.SetActive(false);
+                        player.playerUIManager.itemIcon.SetActive(false);
                     }
                 }
 
@@ -71,13 +74,25 @@ public class InteractableObject : MonoBehaviour
             if (player != null)
             {
                 interactableCanvas.SetActive(false);
-                player.canInteract = false;
+                player.playerUIManager.itemIcon.SetActive(false);
+                //player.canInteract = false;
             }
         }
     }
 
+    //NEED PROPER INTERACTABLE OBJECTS IN FUTURE
     protected virtual void Interact(PlayerManager player)
     {
-        Debug.Log("You interacted.");
+        if (gameObject.tag == "Door")
+        {
+            player.playerInteraction.InteractDoor();
+        }
+
+        if (gameObject.tag == "ItemPickup")
+        {
+            player.playerInteraction.InteractItemPickup();
+            player.playerUIManager.itemIcon.SetActive(false);
+            Destroy(gameObject);
+        }
     }
 }
