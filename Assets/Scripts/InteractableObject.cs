@@ -10,6 +10,9 @@ public class InteractableObject : MonoBehaviour
     protected Collider interactableCollider; //The collider enabling the interaction when the player is close enough for interaction
     [SerializeField] protected GameObject interactableCanvas; //The image indicating the player can interact with this object
 
+    //ITEM ICON WILL DISAPPEAR WHEN PICKING UP ONE OF TWO ITEMS CLOSE TO EACH OTHER
+
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (player == null)

@@ -9,6 +9,7 @@ TagManager:
   - FloorNormal
   - FloorMetal
   - ItemPickup
+  - FloorGrass
   - Door
   layers:
   - Default

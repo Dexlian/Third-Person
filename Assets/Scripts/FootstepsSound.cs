@@ -9,6 +9,8 @@ public class FootstepsSound : MonoBehaviour
 
     public AudioClip[] footstepNormal;
     public AudioClip[] footstepMetal;
+    public AudioClip[] footstepGrass;
+
 
     public float footstepTimer = 0f;
     public float footstepResetTime = 0.2f;
@@ -37,6 +39,13 @@ public class FootstepsSound : MonoBehaviour
         {
             audioSource.volume = (playerMovement.moveSpeed / playerMovement.maximumSpeed) * 0.5f;
             audioSource.PlayOneShot(footstepMetal[Random.Range(0, footstepMetal.Length)]);
+
+            footstepTimer = 0f;
+        }
+        else if (other.transform.CompareTag("FloorGrass") && footstepTimer >= footstepResetTime)
+        {
+            audioSource.volume = (playerMovement.moveSpeed / playerMovement.maximumSpeed) * 0.5f;
+            audioSource.PlayOneShot(footstepGrass[Random.Range(0, footstepMetal.Length)]);
 
             footstepTimer = 0f;
         }
