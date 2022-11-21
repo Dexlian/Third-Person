@@ -6247,7 +6247,8 @@ MonoBehaviour:
   zombieStaggerMultiplierTorso: 1
   zombieStaggerMultiplierArm: 1
   zombieStaggerMultiplierLeg: 1
-  ammo: {fileID: 8142730757896089110, guid: 93076fe4c9dff9041a1852060d552dc5, type: 3}
+  ammoDropChance: 0.25
+  ammo: {fileID: 4249716310883195695, guid: e118933af78f54041a31eaeab2f510d3, type: 3}
 --- !u!114 &7519610712301177585
 MonoBehaviour:
   m_ObjectHideFlags: 0
