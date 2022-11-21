@@ -6227,7 +6227,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   zombieNavMeshAgent: {fileID: 0}
   zombieRigidbody: {fileID: 0}
-  rotationSpeed: 5
+  rotationSpeed: 1
   zombieSpeed: 1
   zombieMaxSpeed: 2
   damageHit: 10
@@ -6241,11 +6241,13 @@ MonoBehaviour:
   zombieDamageMultiplierTorso: 1
   zombieDamageMultiplierArm: 1
   zombieDamageMultiplierLeg: 1
+  decayTimer: 5
   isDead: 0
   zombieStaggerMultiplierHead: 1
   zombieStaggerMultiplierTorso: 1
   zombieStaggerMultiplierArm: 1
   zombieStaggerMultiplierLeg: 1
+  ammo: {fileID: 8142730757896089110, guid: 93076fe4c9dff9041a1852060d552dc5, type: 3}
 --- !u!114 &7519610712301177585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10503,8 +10505,8 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 60
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

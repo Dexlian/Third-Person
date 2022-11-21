@@ -47,6 +47,7 @@ public class ZombieManager : MonoBehaviour
     public float zombieDamageMultiplierTorso = 1f;
     public float zombieDamageMultiplierArm = 1f;
     public float zombieDamageMultiplierLeg = 1f;
+    public float decayTimer = 5f;
     public bool isDead = false;
 
     [Header("Stagger")]
@@ -54,6 +55,10 @@ public class ZombieManager : MonoBehaviour
     public float zombieStaggerMultiplierTorso = 1f;
     public float zombieStaggerMultiplierArm = 1f;
     public float zombieStaggerMultiplierLeg = 1f;
+
+    [Header("Item Drops")]
+    public float ammoDropChance = 0.25f;
+    public GameObject ammo;
 
     private void Awake()
     {
@@ -85,6 +90,16 @@ public class ZombieManager : MonoBehaviour
         {
             distanceFromCurrentTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
         }
+
+        if (isDead)
+        {
+            decayTimer -= Time.deltaTime;
+
+            if (decayTimer <= 0f)
+            {
+                ZombieCleanup();
+            }
+        }
     }
 
     private void HandleStateMachine()
@@ -100,5 +115,19 @@ public class ZombieManager : MonoBehaviour
                 currentState = nextState;
             }
         }
+    }
+
+    private void ZombieCleanup()
+    {
+        float ammoDrop;
+        ammoDrop = Random.Range(0f, 1f);
+
+        if (ammoDrop <= ammoDropChance)
+        {
+            Instantiate(ammo, transform.position, transform.rotation);
+
+        }
+
+        Destroy(gameObject);
     }
 }
